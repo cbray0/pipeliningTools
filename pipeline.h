@@ -1,6 +1,12 @@
 /**
     Simulation automation tools repo
     This file contains a variety of useful functions in automating simulation execution.
+
+    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread`
+
+    The following arguments are recommended: `-Ofast -Wall`
+
+    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -Ofast -Wall -c pipeline.h`
 */
 
 #include <string>
