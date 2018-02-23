@@ -52,10 +52,10 @@ int bash(std::string command,int nice=0){
     ## Returns a human-readable string of a duration. Credit to TankorSmash on Stackoverflow for the code provided freely in answer to a question asked by sorush-r
 
     ### Arguments:
-    * `std::chrono::seconds input_seconds` - Duration to convert to human readable string
+    * `std::chrono::seconds input_seconds` - Duration to convert to human readable string.
 
     ### Returns:
-    * `std::string` - Human readable time duration
+    * `std::string` - Human readable time duration.
 */
 std::string beautify_duration(std::chrono::seconds input_seconds)
 {
@@ -99,9 +99,9 @@ std::string beautify_duration(std::chrono::seconds input_seconds)
 ### Executes GRSISort with given command.
 
 ### Arguments:
-* `string command` - GRSISort command
+* `string command` - GRSISort command.
 
-* `string windowName` - command terminal name (because keyboard emulation is used to type in command)
+* `string windowName` - command terminal name (because keyboard emulation is used to type in command).
 */
 void gs(string command,string windowName){
     bash("xdotool windowactivate $(xdotool search --name '"+windowName+"') && xdotool windowfocus $(xdotool search --name '"+windowName+"') ; sleep 2 && xdotool type '"+command+"' && xdotool key KP_Enter &");
@@ -136,9 +136,9 @@ void quit(){
  ## Executes command in GRSISort
 
  ### Arguments:
- * `string command` - GRSISort command
+ * `string command` - GRSISort command.
 
- * `string windowName` - command terminal name (because keyboard emulation is used to type in command)
+ * `string windowName` - command terminal name (because keyboard emulation is used to type in command).
 
  ### Notes:
  * Runs whichever version of GRSISort is the "default" (AKA the one returned by `which grsisort` in your bourne shell (sh shell))
@@ -172,10 +172,10 @@ std::string ReplaceString(std::string subject, const std::string& search, const 
 }
 
 /**
- ## Check current directory contains the string provided/
+ ## Check current directory contains the string provided
 
  ### Arguments:
- * `string dir` - Directory to check if contained
+ * `string dir` - Directory to check if contained.
 
  ### Notes:
  If it is, it returns zero, otherwise it prompts the user if they want to procede anyway or not. Returns 0 if they want to procede and 1 otherwise.
@@ -197,7 +197,7 @@ bool directoryContains(string dir){
   ## Check run directory
 
   ### Arguments:
-  * `string dir` - Directory to check if running in
+  * `string dir` - Directory to check if running in.
 
   ### Notes:
   If it is, it returns zero, otherwise it prompts the user if they want to procede anyway or not. Returns 0 if they want to procede and 1 otherwise.
