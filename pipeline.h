@@ -125,8 +125,6 @@ void quit(){
         done=(stat("done", &buf)== 0);
     }
     sleep(3);
-    bash("cat done");
-    bash("echo KILLING NOW");
     bash("kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done)");
     bash("rm done");
     // Change window name to prevent confusion
