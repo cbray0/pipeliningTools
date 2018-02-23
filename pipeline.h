@@ -1,5 +1,9 @@
 /**
-    Simulation automation tools repo
+    @file pipeline.h
+    @author Connor Bray
+    @date 23 Feb. 2018
+    @brief Simulation automation tools repo
+
     This file contains a variety of useful functions for automating simulation execution.
 
     The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread`
@@ -27,6 +31,7 @@ using namespace std;
 
 
 /**
+ @brief Call the given command in bash
  ## Call the given command in bash
 
  ### Arguments
@@ -49,6 +54,7 @@ int bash(std::string command,int nice=0){
 }
 
 /**
+ @brie Returns a human-readable string of a duration.
     ## Returns a human-readable string of a duration. Credit to TankorSmash on Stackoverflow for the code provided freely in answer to a question asked by sorush-r
 
     ### Arguments:
@@ -96,6 +102,7 @@ std::string beautify_duration(std::chrono::seconds input_seconds)
 }
 
 /**
+@brief Executes GRSISort with given command
 ### Executes GRSISort with given command.
 
 ### Arguments:
@@ -109,6 +116,7 @@ void gs(string command,string windowName){
 }
 
 /**
+@brief Quits GRSISort when done file appears
 ### Quits GRSISort when done file appears
 
 ## Notes:
@@ -131,6 +139,7 @@ void quit(){
 }
 
 /**
+@brief Executes command in GRSISort
  ## Executes command in GRSISort
 
  ### Arguments:
@@ -151,6 +160,7 @@ void grsisort(string command,string windowName){
 }
 
 /**
+@brief Replace all instances of a string in another string with a third string
  ## Replace all instances of a string in another string with a third string. Credit to Czarek Tomczak on stack overflow for supplying the code in response to a question asked by NullVoxPopuli.
 
  ### Arguments:
@@ -170,6 +180,7 @@ std::string ReplaceString(std::string subject, const std::string& search, const 
 }
 
 /**
+@brief Check current directory contains the string provided
  ## Check current directory contains the string provided
 
  ### Arguments:
@@ -192,6 +203,7 @@ bool directoryContains(string dir){
 }
 
 /**
+@brief Check run directory
   ## Check run directory
 
   ### Arguments:
@@ -214,6 +226,7 @@ bool directoryCheck(string dir){
 }
 
 /**
+@brief Executes command in ROOT
  ## Executes command in ROOT
 
  ### Arguments:
