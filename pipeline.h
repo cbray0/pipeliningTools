@@ -1,6 +1,6 @@
 /**
     Simulation automation tools repo
-    This file contains a variety of useful functions in automating simulation execution.
+    This file contains a variety of useful functions for automating simulation execution.
 
     The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread`
 
