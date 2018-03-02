@@ -152,6 +152,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0b2fad80ace24afcf5731a30fa0145c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a0b2fad80ace24afcf5731a30fa0145c7">directoryCheck</a> (string dir)</td></tr>
 <tr class="memdesc:a0b2fad80ace24afcf5731a30fa0145c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check run directory.  <a href="#a0b2fad80ace24afcf5731a30fa0145c7">More...</a><br/></td></tr>
 <tr class="separator:a0b2fad80ace24afcf5731a30fa0145c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab77304a2c88366e3a6e3bbf933887c1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ab77304a2c88366e3a6e3bbf933887c1f">directoryEmpty</a> (string dir)</td></tr>
+<tr class="memdesc:ab77304a2c88366e3a6e3bbf933887c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if directory is empty.  <a href="#ab77304a2c88366e3a6e3bbf933887c1f">More...</a><br/></td></tr>
+<tr class="separator:ab77304a2c88366e3a6e3bbf933887c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc142984812c5e9345b1bb96fe4795d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#abc142984812c5e9345b1bb96fe4795d7">root</a> (string command)</td></tr>
 <tr class="memdesc:abc142984812c5e9345b1bb96fe4795d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes command in ROOT.  <a href="#abc142984812c5e9345b1bb96fe4795d7">More...</a><br/></td></tr>
 <tr class="separator:abc142984812c5e9345b1bb96fe4795d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,7 +199,7 @@ Functions</h2></td></tr>
 <p><code>int nice</code> - nice value to run command at (added to avoid issues with nice not working with aliases). Defualts to zero.</p>
 <h3>Returns the return value of the given function</h3>
 
-<p>Referenced by <a class="el" href="pipeline_8h.html#aed15378ea574322b0590597ac8d4d116">gs()</a>, <a class="el" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit()</a>, and <a class="el" href="pipeline_8h.html#abc142984812c5e9345b1bb96fe4795d7">root()</a>.</p>
+<p>Referenced by <a class="el" href="pipeline_8h.html#ab77304a2c88366e3a6e3bbf933887c1f">directoryEmpty()</a>, <a class="el" href="pipeline_8h.html#aed15378ea574322b0590597ac8d4d116">gs()</a>, <a class="el" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit()</a>, and <a class="el" href="pipeline_8h.html#abc142984812c5e9345b1bb96fe4795d7">root()</a>.</p>
 
 </div>
 </div>
@@ -266,6 +269,29 @@ Functions</h2></td></tr>
 <p><code>string dir</code> - Directory to check if contained.</p>
 <h3>Notes:</h3>
 <p>If it is, it returns zero, otherwise it prompts the user if they want to procede anyway or not. Returns 0 if they want to procede and 1 otherwise. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab77304a2c88366e3a6e3bbf933887c1f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool directoryEmpty </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if directory is empty. </p>
+<h2>Check run directory for files</h2>
+<h3>Arguments:</h3>
+<p><code>string dir</code> - Directory to check if running in.</p>
+<h3>Notes:</h3>
+<p>If it is, it returns zero, otherwise it prompts the user for how they want to procede. Returns 0 if they want to procede and 1 otherwise. </p>
 
 </div>
 </div>
