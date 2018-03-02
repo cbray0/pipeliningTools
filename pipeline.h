@@ -237,6 +237,42 @@ bool directoryCheck(string dir){
 }
 
 /**
+@brief Check if directory is empty
+
+  ## Check run directory for files
+
+  ### Arguments:
+  * `string dir` - Directory to check if running in.
+
+  ### Notes:
+  If it is, it returns zero, otherwise it prompts the user for how they want to procede. Returns 0 if they want to procede and 1 otherwise.
+*/
+bool directoryEmpty(string dir){
+    int i, ret=system(("DIR='"+dir+"';[ \"$(ls -A $DIR)\" ] && exit 1 || exit 0").c_str());
+    i=WEXITSTATUS(ret); // Get return value.
+    if(i==0) return 0;
+    while(1){
+        cout << "Directory not empty. Press c then enter to clean, press s then enter to skip, or press e then enter to exit." << endl;
+        string input;
+        cin >> input;
+        if(input[0]=='c'||input[0]=='C'){
+            cout << "Cleaning directory." << endl;
+            return bash("rm -f "+dir+"/*");
+        }
+        if(input[0]=='s'||input[0]=='S'){
+            cout << "Skipping clean directory." << endl;
+            return 0;
+        }
+        if(input[0]=='e'||input[0]=='E'){
+            cout << "Exiting." << endl;
+            return 1;
+        }
+        cout << "Error. ";
+    }
+}
+
+
+/**
 @brief Executes command in ROOT
 
  ## Executes command in ROOT
