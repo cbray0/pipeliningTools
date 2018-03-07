@@ -9,13 +9,13 @@
 
     This file contains a variety of useful functions for automating simulation execution.
 
-    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread`
+    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl`
 
     The following arguments are recommended: `-Ofast -Wall`
 
-    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -Ofast -Wall -c pipeline.h`
+    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -ldl -Ofast -Wall -c pipeline.h`
 */
-
+#pragma once
 #include <string>
 #include <iostream>
 #include <thread>
@@ -30,9 +30,6 @@
 #include <sys/stat.h>
 #include <cstring>
 
-using namespace std;
-
-
 /**
  @brief Call the given command in bash
 
@@ -44,13 +41,16 @@ using namespace std;
  * `int nice` - nice value to run command at (added to avoid issues with nice not working with aliases). Defualts to zero.
 
   ### Returns the return value of the given function
+
+  ### Notes:
+  * Your bashrc must be configured to only run commands that require interactivity if interactivity is present, otherwise problems may insue.
 */
 int bash(std::string command,int nice=0){
-    cout << command + "\n";
-    string shell = "\
+    std::cout << command + "\n";
+    std::string shell = "\
     #!/bin/bash \n\
     source ~/.bashrc\n\
-    renice -n "+to_string(nice)+" -p $$\n\
+    renice -n "+std::to_string(nice)+" -p $$\n\
     ";
     int i,ret = system((shell+command).c_str());
     i=WEXITSTATUS(ret); // Get return value.
@@ -116,7 +116,7 @@ std::string beautify_duration(std::chrono::seconds input_seconds)
 
 * `string windowName` - command terminal name (because keyboard emulation is used to type in command).
 */
-void gs(string command,string windowName){
+void gs(std::string command,std::string windowName){
     bash("xdotool windowactivate $(xdotool search --name '"+windowName+"') && xdotool windowfocus $(xdotool search --name '"+windowName+"') ; sleep 2 && xdotool type '"+command+"' && xdotool key KP_Enter &");
     system("grsisort -l");
 }
@@ -159,11 +159,11 @@ void quit(){
  * Runs whichever version of GRSISort is the "default" (AKA the one returned by `which grsisort` in your bourne shell (sh shell))
  * To exit, the gs macro must write the command's pid to a file called 'done' so that the quit command knows which to quit.
 */
-void grsisort(string command,string windowName){
+void grsisort(std::string command,std::string windowName){
     /// Vector of treads initiated to simplify rejoining
-    vector<thread> threadpool;
-    threadpool.push_back(thread(gs,command,windowName)); // Run GRSISort macro
-    threadpool.push_back(thread(quit)); // Quit GRSISort after it opens windowfocus
+    std::vector<std::thread> threadpool;
+    threadpool.push_back(std::thread(gs,command,windowName)); // Run GRSISort macro
+    threadpool.push_back(std::thread(quit)); // Quit GRSISort after it opens windowfocus
     for(unsigned int j=0;j<threadpool.size();j++) threadpool[j].join(); //Rejoin threads
 }
 
@@ -199,14 +199,14 @@ std::string ReplaceString(std::string subject, const std::string& search, const 
  ### Notes:
  If it is, it returns zero, otherwise it prompts the user if they want to procede anyway or not. Returns 0 if they want to procede and 1 otherwise.
 */
-bool directoryContains(string dir){
+bool directoryContains(std::string dir){
     char run_path[256];
     getcwd(run_path, 255);
-    string path = run_path;
-    if(path.find(dir)==string::npos){
-        cout << "Warning, not running in "+dir+", which may cause out of storage issues. Please consider running from "+dir+". Press enter to quit or c then enter to continue." << endl;
+    std::string path = run_path;
+    if(path.find(dir)==std::string::npos){
+        std::cout << "Warning, not running in "+dir+", which may cause out of storage issues. Please consider running from "+dir+". Press enter to quit or c then enter to continue." << std::endl;
         char input[2];
-        cin.getline(input,2);
+        std::cin.getline(input,2);
         if(input[0]!='c'&&input[0]!='C') return 1;
     }
     return 0;
@@ -223,14 +223,14 @@ bool directoryContains(string dir){
   ### Notes:
   If it is, it returns zero, otherwise it prompts the user if they want to procede anyway or not. Returns 0 if they want to procede and 1 otherwise.
 */
-bool directoryCheck(string dir){
+bool directoryCheck(std::string dir){
     char run_path[256];
     getcwd(run_path, 255);
-    string path = run_path;
+    std::string path = run_path;
     if(path != dir){
-        cout << "Warning, not running in "+dir+", which may cause out of storage issues. Please consider running from "+dir+". Press enter to quit or c then enter to continue." << endl;
+        std::cout << "Warning, not running in "+dir+", which may cause out of storage issues. Please consider running from "+dir+". Press enter to quit or c then enter to continue." << std::endl;
         char input[2];
-        cin.getline(input,2);
+        std::cin.getline(input,2);
         if(input[0]!='c'&&input[0]!='C') return 1;
     }
     return 0;
@@ -247,27 +247,27 @@ bool directoryCheck(string dir){
   ### Notes:
   If it is, it returns zero, otherwise it prompts the user for how they want to procede. Returns 0 if they want to procede and 1 otherwise.
 */
-bool directoryEmpty(string dir){
+bool directoryEmpty(std::string dir){
     int i, ret=system(("DIR='"+dir+"';[ \"$(ls -A $DIR)\" ] && exit 1 || exit 0").c_str());
     i=WEXITSTATUS(ret); // Get return value.
     if(i==0) return 0;
     while(1){
-        cout << "Directory not empty. Press c then enter to clean, press s then enter to skip, or press e then enter to exit." << endl;
-        string input;
-        cin >> input;
+        std::cout << "Directory not empty. Press c then enter to clean, press s then enter to skip, or press e then enter to exit." << std::endl;
+        std::string input;
+        std::cin >> input;
         if(input[0]=='c'||input[0]=='C'){
-            cout << "Cleaning directory." << endl;
+            std::cout << "Cleaning directory." << std::endl;
             return bash("rm -f "+dir+"/*");
         }
         if(input[0]=='s'||input[0]=='S'){
-            cout << "Skipping clean directory." << endl;
+            std::cout << "Skipping clean directory." << std::endl;
             return 0;
         }
         if(input[0]=='e'||input[0]=='E'){
-            cout << "Exiting." << endl;
+            std::cout << "Exiting." << std::endl;
             return 1;
         }
-        cout << "Error. ";
+        std::cout << "Error. ";
     }
 }
 
@@ -280,6 +280,9 @@ bool directoryEmpty(string dir){
  ### Arguments:
  * `string command` - ROOT command.
 */
-int root(string command){
+int root(std::string command){
     return bash("root -q -e '"+command+"'");
 }
+
+std::string Backtrace(int skip = 0); // In other file due to licence compatability.
+#include "backtrace.cpp"
