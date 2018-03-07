@@ -146,7 +146,7 @@ void quit(){
 }
 
 /**
-@brief Executes command in GRSISort
+@brief Executes, then quits, command in GRSISort
 
  ## Executes command in GRSISort
 
@@ -284,5 +284,13 @@ int root(std::string command){
     return bash("root -q -e '"+command+"'");
 }
 
+/**
+@brief Returns a string of the backtrace
+
+ ## Creates and decodes backtrace
+
+ ### Arguments:
+ * `int skip` - Skip current function. Defaults to false (0).
+*/
 std::string Backtrace(int skip = 0); // In other file due to licence compatability.
 #include "backtrace.cpp"
