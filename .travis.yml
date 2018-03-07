@@ -25,7 +25,7 @@ addons:
 
 # Build your code e.g. by calling make
 script:
-  - g++ -std=c++11 -lX11 -lXtst -pthread -Ofast -Wall -c pipeline.h
+  - g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c pipeline.h
 
 # Generate and deploy documentation
 after_success:
