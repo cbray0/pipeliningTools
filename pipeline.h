@@ -9,11 +9,11 @@
 
     This file contains a variety of useful functions for automating simulation execution.
 
-    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl`
+    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g`
 
-    The following arguments are recommended: `-Ofast -Wall`
+    The following arguments are recommended: `-Ofast -Wall -g`
 
-    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -ldl -Ofast -Wall -c pipeline.h`
+    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c pipeline.h`
 */
 #pragma once
 #include <string>
@@ -284,13 +284,22 @@ int root(std::string command){
     return bash("root -q -e '"+command+"'");
 }
 
+#define BACKWARD_HAS_DW 1
+#include "backward.hpp"
+namespace backward {
+backward::SignalHandling sh;
+}
+
 /**
-@brief Returns a string of the backtrace
+@brief Prints backtrace to stdout
 
- ## Creates and decodes backtrace
-
- ### Arguments:
- * `int skip` - Skip current function. Defaults to false (0).
+ ## Code from https://github.com/bombela/backward-cpp (MIT licenced)
 */
-std::string Backtrace(int skip = 0); // In other file due to licence compatability.
-#include "backtrace.cpp"
+void Backtrace(){
+    backward::StackTrace st; st.load_here(32);
+    backward::Printer p;
+    p.object = true;
+    p.color_mode = backward::ColorMode::always;
+    p.address = true;
+    p.print(st, stdout);
+}
