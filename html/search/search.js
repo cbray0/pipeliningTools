@@ -8,7 +8,7 @@
 var indexSectionsWithContent =
 {
   0: "bdgpqr",
-  1: "pr",
+  1: "bpr",
   2: "bdgqr",
   3: "p"
 };
