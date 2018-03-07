@@ -142,7 +142,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2463a3acef2df4c951ce942a3229e44e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quits GRSISort when done file appears.  <a href="#a2463a3acef2df4c951ce942a3229e44e">More...</a><br/></td></tr>
 <tr class="separator:a2463a3acef2df4c951ce942a3229e44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef22614541f686d75eee2e14a45f781"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a> (std::string command, std::string windowName)</td></tr>
-<tr class="memdesc:a3ef22614541f686d75eee2e14a45f781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes command in GRSISort.  <a href="#a3ef22614541f686d75eee2e14a45f781">More...</a><br/></td></tr>
+<tr class="memdesc:a3ef22614541f686d75eee2e14a45f781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes, then quits, command in GRSISort.  <a href="#a3ef22614541f686d75eee2e14a45f781">More...</a><br/></td></tr>
 <tr class="separator:a3ef22614541f686d75eee2e14a45f781"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77f79fe88017c77fe691dca577d3fe49"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a> (std::string subject, const std::string &amp;search, const std::string &amp;replace)</td></tr>
 <tr class="memdesc:a77f79fe88017c77fe691dca577d3fe49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace all instances of a string in another string with a third string.  <a href="#a77f79fe88017c77fe691dca577d3fe49">More...</a><br/></td></tr>
@@ -160,6 +160,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a660c91225fdf7618918ecbe2248f3ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes command in ROOT.  <a href="#a660c91225fdf7618918ecbe2248f3ba2">More...</a><br/></td></tr>
 <tr class="separator:a660c91225fdf7618918ecbe2248f3ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a855a4e5bae508f6898813f7e0326f669"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a855a4e5bae508f6898813f7e0326f669">Backtrace</a> (int skip=0)</td></tr>
+<tr class="memdesc:a855a4e5bae508f6898813f7e0326f669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string of the backtrace.  <a href="#a855a4e5bae508f6898813f7e0326f669">More...</a><br/></td></tr>
 <tr class="separator:a855a4e5bae508f6898813f7e0326f669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -184,6 +185,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns a string of the backtrace. </p>
+<h2>Creates and decodes backtrace</h2>
+<h3>Arguments:</h3>
+<p><code>int skip</code> - Skip current function. Defaults to false (0). </p>
 
 </div>
 </div>
@@ -340,7 +346,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Executes command in GRSISort. </p>
+<p>Executes, then quits, command in GRSISort. </p>
 <h2>Executes command in GRSISort</h2>
 <h3>Arguments:</h3>
 <p><code>string command</code> - GRSISort command.</p>
