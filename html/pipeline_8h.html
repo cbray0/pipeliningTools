@@ -46,6 +46,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -91,7 +93,7 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,7 +104,10 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">pipeline.h File Reference</div>  </div>
 </div><!--header-->
@@ -123,10 +128,20 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 <code>#include &lt;iomanip&gt;</code><br/>
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;cstring&gt;</code><br/>
-<code>#include &quot;<a class="el" href="backtrace_8cpp.html">backtrace.cpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="backward_8hpp_source.html">backward.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacebackward"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebackward.html">backward</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa5592fc113f9fea784f0727b6c3af74e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#aa5592fc113f9fea784f0727b6c3af74e">BACKWARD_HAS_DW</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aa5592fc113f9fea784f0727b6c3af74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a086056b68efd94bcb1ebf2c1811f73fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a> (std::string command, int nice=0)</td></tr>
@@ -159,37 +174,52 @@ Functions</h2></td></tr>
 <tr class="memitem:a660c91225fdf7618918ecbe2248f3ba2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root</a> (std::string command)</td></tr>
 <tr class="memdesc:a660c91225fdf7618918ecbe2248f3ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes command in ROOT.  <a href="#a660c91225fdf7618918ecbe2248f3ba2">More...</a><br/></td></tr>
 <tr class="separator:a660c91225fdf7618918ecbe2248f3ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a855a4e5bae508f6898813f7e0326f669"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a855a4e5bae508f6898813f7e0326f669">Backtrace</a> (int skip=0)</td></tr>
-<tr class="memdesc:a855a4e5bae508f6898813f7e0326f669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string of the backtrace.  <a href="#a855a4e5bae508f6898813f7e0326f669">More...</a><br/></td></tr>
-<tr class="separator:a855a4e5bae508f6898813f7e0326f669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24cf04843051b92ae1ff83445a04f0ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a> ()</td></tr>
+<tr class="memdesc:a24cf04843051b92ae1ff83445a04f0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints backtrace to stdout.  <a href="#a24cf04843051b92ae1ff83445a04f0ad">More...</a><br/></td></tr>
+<tr class="separator:a24cf04843051b92ae1ff83445a04f0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbackward_1_1SignalHandling.html">backward::SignalHandling</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></td></tr>
+<tr class="separator:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simulation automation tools repo. </p>
 <dl class="section author"><dt>Author</dt><dd>Connor Bray</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23 Feb. 2018</dd></dl>
 <p>This file contains a variety of useful functions for automating simulation execution.</p>
-<p>The following arguments are required to compile: <code>-std=c++11 -lX11 -lXtst -pthread -ldl</code></p>
-<p>The following arguments are recommended: <code>-Ofast -Wall</code></p>
-<p>To precompile the header: <code>g++ -std=c++11 -lX11 -lXtst -pthread -ldl -Ofast -Wall -c <a class="el" href="pipeline_8h.html" title="Simulation automation tools repo. ">pipeline.h</a></code> </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a855a4e5bae508f6898813f7e0326f669"></a>
+<p>The following arguments are required to compile: <code>-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g</code></p>
+<p>The following arguments are recommended: <code>-Ofast -Wall -g</code></p>
+<p>To precompile the header: <code>g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c <a class="el" href="pipeline_8h.html" title="Simulation automation tools repo. ">pipeline.h</a></code> </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="aa5592fc113f9fea784f0727b6c3af74e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string Backtrace </td>
+          <td class="memname">#define BACKWARD_HAS_DW&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a24cf04843051b92ae1ff83445a04f0ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Backtrace </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>skip</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a string of the backtrace. </p>
-<h2>Creates and decodes backtrace</h2>
-<h3>Arguments:</h3>
-<p><code>int skip</code> - Skip current function. Defaults to false (0). </p>
+<p>Prints backtrace to stdout. </p>
+<h2>Code from <a href="https://github.com/bombela/backward-cpp">https://github.com/bombela/backward-cpp</a> (MIT licenced)</h2>
 
 </div>
 </div>

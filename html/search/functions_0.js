@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['backtrace',['Backtrace',['../backtrace_8cpp.html#ac411bc6866c0d920df9c6d638387e20c',1,'Backtrace(int skip):&#160;backtrace.cpp'],['../pipeline_8h.html#a855a4e5bae508f6898813f7e0326f669',1,'Backtrace(int skip=0):&#160;backtrace.cpp']]],
-  ['bash',['bash',['../pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd',1,'pipeline.h']]],
-  ['beautify_5fduration',['beautify_duration',['../pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810',1,'pipeline.h']]]
+  ['activate',['activate',['../classbackward_1_1Colorize.html#a292685cb3eb1d1ae5779e239b0d05ce6',1,'backward::Colorize::activate(ColorMode::type)'],['../classbackward_1_1Colorize.html#ad1171b299febf4e9a72616642f5cc5ce',1,'backward::Colorize::activate(ColorMode::type, FILE *)']]]
 ];

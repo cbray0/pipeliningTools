@@ -1,6 +1,7 @@
 var pipeline_8h =
 [
-    [ "Backtrace", "pipeline_8h.html#a855a4e5bae508f6898813f7e0326f669", null ],
+    [ "BACKWARD_HAS_DW", "pipeline_8h.html#aa5592fc113f9fea784f0727b6c3af74e", null ],
+    [ "Backtrace", "pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad", null ],
     [ "bash", "pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd", null ],
     [ "beautify_duration", "pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810", null ],
     [ "directoryCheck", "pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23", null ],
@@ -10,5 +11,6 @@ var pipeline_8h =
     [ "gs", "pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c", null ],
     [ "quit", "pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e", null ],
     [ "ReplaceString", "pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49", null ],
-    [ "root", "pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2", null ]
+    [ "root", "pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2", null ],
+    [ "sh", "pipeline_8h.html#a6be34a42939faf0fbcfe077ce9faf9ae", null ]
 ];

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Simulation Pipelining tools: backtrace.cpp File Reference</title>
+<title>Simulation Pipelining tools: backward::details::hashtable&lt; K, V &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -67,8 +69,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -83,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('backtrace_8cpp.html','');});
+$(document).ready(function(){initNavTree('structbackward_1_1details_1_1hashtable.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -91,7 +95,7 @@ $(document).ready(function(){initNavTree('backtrace_8cpp.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,53 +106,43 @@ $(document).ready(function(){initNavTree('backtrace_8cpp.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#pub-types">Public Types</a>  </div>
   <div class="headertitle">
-<div class="title">backtrace.cpp File Reference</div>  </div>
+<div class="title">backward::details::hashtable&lt; K, V &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;execinfo.h&gt;</code><br/>
-<code>#include &lt;dlfcn.h&gt;</code><br/>
-<code>#include &lt;cxxabi.h&gt;</code><br/>
-<code>#include &lt;cstdio&gt;</code><br/>
-<code>#include &lt;cstdlib&gt;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ac411bc6866c0d920df9c6d638387e20c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="backtrace_8cpp.html#ac411bc6866c0d920df9c6d638387e20c">Backtrace</a> (int skip)</td></tr>
-<tr class="memdesc:ac411bc6866c0d920df9c6d638387e20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string of the backtrace.  <a href="#ac411bc6866c0d920df9c6d638387e20c">More...</a><br/></td></tr>
-<tr class="separator:ac411bc6866c0d920df9c6d638387e20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+
+<p><code>#include &lt;<a class="el" href="backward_8hpp_source.html">backward.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aae4f677b99219aebb58cb5e0cc303225"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; K, V &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbackward_1_1details_1_1hashtable.html#aae4f677b99219aebb58cb5e0cc303225">type</a></td></tr>
+<tr class="separator:aae4f677b99219aebb58cb5e0cc303225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ac411bc6866c0d920df9c6d638387e20c"></a>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="aae4f677b99219aebb58cb5e0cc303225"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename K, typename V&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::string Backtrace </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>skip</em> = <code>0</code></td><td>)</td>
-          <td></td>
+          <td class="memname">typedef std::map&lt;K, V&gt; <a class="el" href="structbackward_1_1details_1_1hashtable.html">backward::details::hashtable</a>&lt; K, V &gt;::<a class="el" href="structbackward_1_1details_1_1hashtable.html#aae4f677b99219aebb58cb5e0cc303225">type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a string of the backtrace. </p>
-<h2>Creates and decodes backtrace</h2>
-<h3>Arguments:</h3>
-<p><code>int skip</code> - Skip current function. Defaults to false (0). </p>
-
 </div>
 </div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li><a class="el" href="backward_8hpp_source.html">backward.hpp</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="backtrace_8cpp.html">backtrace.cpp</a></li>
+    <li class="navelem"><a class="el" href="namespacebackward.html">backward</a></li><li class="navelem"><a class="el" href="namespacebackward_1_1details.html">details</a></li><li class="navelem"><a class="el" href="structbackward_1_1details_1_1hashtable.html">hashtable</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
