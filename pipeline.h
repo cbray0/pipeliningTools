@@ -29,6 +29,7 @@
 #include <iomanip>
 #include <sys/stat.h>
 #include <cstring>
+#include <fstream>
 
 /**
  @brief Call the given command in bash
@@ -287,6 +288,7 @@ int root(std::string command){
 #define BACKWARD_HAS_DW 1
 #include "backward-cpp/backward.hpp"
 namespace backward {
+/// Singal hander - prints pretty debug output if there is an error.
 backward::SignalHandling sh;
 }
 
@@ -311,23 +313,17 @@ void Backtrace(){
 /**
 @brief Emails user
 
- ## Email user (incomplete, not working.)
+ ## Email user
 
  ### Arguments:
  * `string destination` - Email to send to
-
- * `string subject` - Subject of email
-
  * `string message` - Message of Email
 
- * `string key` - GMail API key for sender
-
  ### Notes:
- To email when program is complete, in your main, add the following line: `std::atexit(email(destination,subject,message,key));`
-
- You can also set this to email on errors using: ``
+ To email when program is complete, in your main, add the following line: `std::atexit(email(destination,message));`
 */
-void email(std::string destination, std::string subject, std::string message, std::string key){
+void email(std::string destination, std::string message){
+    bash("echo "+message+" | sendmail "+destination);
     return;
 }
 
@@ -350,4 +346,38 @@ void email(std::string destination, std::string subject, std::string message, st
 void slack(std::string message, std::string key){
     system(("curl -X POST -H 'Content-type: application/json' --data \"{'text':'"+message+"'}\" "+key).c_str());
     return;
+}
+
+
+/**
+@brief Change a line in a file, writing to a new file
+
+ ## Change a line in a file, writing to a new file (Modifed from code written by Anton on StackOverflow)
+
+ ### Arguments:
+ * `string original` - String to replace
+
+ * `string replace` - String to replace original with
+
+ * `string input` - Filename of input file
+
+ * `string output` - Filename of output file
+*/
+int replaceLineInFile(std::string original, std::string replace, std::string input, std::string output){
+    std::ifstream filein(input);
+    std::ofstream fileout(output);
+    if(!filein || !fileout)
+    {
+        std::cout << "Error opening files!" << std::endl;
+        return 1;
+    }
+
+    std::string strTemp;
+    while(!filein.eof())
+    {
+        getline(filein,strTemp);
+        if(strTemp == original) strTemp = replace;
+        fileout << strTemp << "\n";
+    }
+    return 0;
 }
