@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['cfile_5fstreambuf',['cfile_streambuf',['../classbackward_1_1cfile__streambuf.html#a798d4b7e1e05f3cce444421ba456f766',1,'backward::cfile_streambuf']]],
-  ['colorize',['Colorize',['../classbackward_1_1Colorize.html#a952bae33e9e382a19cde094266858a1c',1,'backward::Colorize']]]
+  ['grsisort',['grsisort',['../pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781',1,'pipeline.h']]],
+  ['gs',['gs',['../pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c',1,'pipeline.h']]]
 ];

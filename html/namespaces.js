@@ -1,4 +1,4 @@
 var namespaces =
 [
-    [ "backward", "namespacebackward.html", "namespacebackward" ]
+    [ "backward", "namespacebackward.html", null ]
 ];
