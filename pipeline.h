@@ -285,7 +285,7 @@ int root(std::string command){
 }
 
 #define BACKWARD_HAS_DW 1
-#include "backward.hpp"
+#include "backward-cpp/backward.hpp"
 namespace backward {
 backward::SignalHandling sh;
 }
@@ -294,6 +294,9 @@ backward::SignalHandling sh;
 @brief Prints backtrace to stdout
 
  ## Code from https://github.com/bombela/backward-cpp (MIT licenced)
+
+ ### Notes:
+ Requires libdw-dev.
 */
 void Backtrace(){
     backward::StackTrace st; st.load_here(32);
@@ -302,4 +305,49 @@ void Backtrace(){
     p.color_mode = backward::ColorMode::always;
     p.address = true;
     p.print(st, stdout);
+}
+
+
+/**
+@brief Emails user
+
+ ## Email user (incomplete, not working.)
+
+ ### Arguments:
+ * `string destination` - Email to send to
+
+ * `string subject` - Subject of email
+
+ * `string message` - Message of Email
+
+ * `string key` - GMail API key for sender
+
+ ### Notes:
+ To email when program is complete, in your main, add the following line: `std::atexit(email(destination,subject,message,key));`
+
+ You can also set this to email on errors using: ``
+*/
+void email(std::string destination, std::string subject, std::string message, std::string key){
+    return;
+}
+
+/**
+@brief Slack Message
+
+ ## Sends slack message
+
+ ### Arguments:
+ * `string message` - Message to send
+
+ * `string key` - API key - should look something like "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+ ### Notes:
+ To use, in your main, add the following line: `std::atexit(slack(message,key));`
+
+ To use, you will need to go to api.slack.com (or request I do so), and get an API hook into whichever DM or channel you want to message.
+
+*/
+void slack(std::string message, std::string key){
+    system(("curl -X POST -H 'Content-type: application/json' --data \"{'text':'"+message+"'}\" "+key).c_str());
+    return;
 }
