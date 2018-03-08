@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 <code>#include &lt;iomanip&gt;</code><br/>
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;cstring&gt;</code><br/>
-<code>#include &quot;backward.hpp&quot;</code><br/>
+<code>#include &quot;backward-cpp/backward.hpp&quot;</code><br/>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -176,6 +176,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a24cf04843051b92ae1ff83445a04f0ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a> ()</td></tr>
 <tr class="memdesc:a24cf04843051b92ae1ff83445a04f0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints backtrace to stdout.  <a href="#a24cf04843051b92ae1ff83445a04f0ad">More...</a><br/></td></tr>
 <tr class="separator:a24cf04843051b92ae1ff83445a04f0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbe60998191e221b593087427d2dd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#afbbe60998191e221b593087427d2dd94">email</a> (std::string destination, std::string subject, std::string message, std::string key)</td></tr>
+<tr class="memdesc:afbbe60998191e221b593087427d2dd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emails user.  <a href="#afbbe60998191e221b593087427d2dd94">More...</a><br/></td></tr>
+<tr class="separator:afbbe60998191e221b593087427d2dd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a549ba0b1a44f344b3a6849ad445f990b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a> (std::string message, std::string key)</td></tr>
+<tr class="memdesc:a549ba0b1a44f344b3a6849ad445f990b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slack Message.  <a href="#a549ba0b1a44f344b3a6849ad445f990b">More...</a><br/></td></tr>
+<tr class="separator:a549ba0b1a44f344b3a6849ad445f990b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -219,6 +225,8 @@ Variables</h2></td></tr>
 
 <p>Prints backtrace to stdout. </p>
 <h2>Code from <a href="https://github.com/bombela/backward-cpp">https://github.com/bombela/backward-cpp</a> (MIT licenced)</h2>
+<h3>Notes:</h3>
+<p>Requires libdw-dev. </p>
 
 </div>
 </div>
@@ -348,6 +356,55 @@ Variables</h2></td></tr>
 <p><code>string dir</code> - Directory to check if running in.</p>
 <h3>Notes:</h3>
 <p>If it is, it returns zero, otherwise it prompts the user for how they want to procede. Returns 0 if they want to procede and 1 otherwise. </p>
+
+</div>
+</div>
+<a class="anchor" id="afbbe60998191e221b593087427d2dd94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void email </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>destination</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>subject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Emails user. </p>
+<h2>Email user (incomplete, not working.)</h2>
+<h3>Arguments:</h3>
+<p><code>string destination</code> - Email to send to</p>
+<p><code>string subject</code> - Subject of email</p>
+<p><code>string message</code> - Message of Email</p>
+<p><code>string key</code> - GMail API key for sender</p>
+<h3>Notes:</h3>
+<p>To email when program is complete, in your main, add the following line: <code>std::atexit(email(destination,subject,message,key));</code></p>
+<p>You can also set this to email on errors using: `` </p>
 
 </div>
 </div>
@@ -501,6 +558,41 @@ Variables</h2></td></tr>
 <h2>Executes command in ROOT</h2>
 <h3>Arguments:</h3>
 <p><code>string command</code> - ROOT command. </p>
+
+</div>
+</div>
+<a class="anchor" id="a549ba0b1a44f344b3a6849ad445f990b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void slack </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Slack Message. </p>
+<h2>Sends slack message</h2>
+<h3>Arguments:</h3>
+<p><code>string message</code> - Message to send</p>
+<p><code>string key</code> - API key - should look something like "https://hooks.slack.com/services/xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</p>
+<h3>Notes:</h3>
+<p>To use, in your main, add the following line: <code>std::atexit(slack(message,key));</code></p>
+<p>To use, you will need to go to api.slack.com (or request I do so), and get an API hook into whichever DM or channel you want to message. </p>
 
 </div>
 </div>
