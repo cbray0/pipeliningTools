@@ -121,183 +121,206 @@ $(document).ready(function(){initNavTree('pipeline_8h_source.html','');});
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">   48</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(std::string command,<span class="keywordtype">int</span> nice=0){</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::cout &lt;&lt; command + <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::string shell = <span class="stringliteral">&quot;\</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="stringliteral">    #!/bin/bash \n\</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="stringliteral">    source ~/.bashrc\n\</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">    renice -n &quot;</span>+std::to_string(nice)+<span class="stringliteral">&quot; -p $$\n\</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">    &quot;</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">int</span> i,ret = system((shell+command).c_str());</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    i=WEXITSTATUS(ret); <span class="comment">// Get return value.</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">   71</a></span>&#160;std::string <a class="code" href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">beautify_duration</a>(std::chrono::seconds input_seconds)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">using namespace </span>std::chrono;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">typedef</span> duration&lt;int, std::ratio&lt;86400&gt;&gt; days;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">auto</span> d = duration_cast&lt;days&gt;(input_seconds);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    input_seconds -= d;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">auto</span> h = duration_cast&lt;hours&gt;(input_seconds);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    input_seconds -= h;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">auto</span> m = duration_cast&lt;minutes&gt;(input_seconds);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    input_seconds -= m;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">auto</span> s = duration_cast&lt;seconds&gt;(input_seconds);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">auto</span> dc = d.count();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">auto</span> hc = h.count();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">auto</span> mc = m.count();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">auto</span> sc = s.count();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::stringstream ss;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    ss.fill(<span class="charliteral">&#39;0&#39;</span>);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">if</span> (dc) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        ss &lt;&lt; d.count() &lt;&lt; <span class="stringliteral">&quot;d&quot;</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (dc || hc) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span> (dc) { ss &lt;&lt; std::setw(2); } <span class="comment">//pad if second set of numbers</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        ss &lt;&lt; h.count() &lt;&lt; <span class="stringliteral">&quot;h&quot;</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (dc || hc || mc) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (dc || hc) { ss &lt;&lt; std::setw(2); }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        ss &lt;&lt; m.count() &lt;&lt; <span class="stringliteral">&quot;m&quot;</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (dc || hc || mc || sc) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (dc || hc || mc) { ss &lt;&lt; std::setw(2); }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        ss &lt;&lt; s.count() &lt;&lt; <span class="charliteral">&#39;s&#39;</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">  119</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a>(std::string command,std::string windowName){</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;xdotool windowactivate $(xdotool search --name &#39;&quot;</span>+windowName+<span class="stringliteral">&quot;&#39;) &amp;&amp; xdotool windowfocus $(xdotool search --name &#39;&quot;</span>+windowName+<span class="stringliteral">&quot;&#39;) ; sleep 2 &amp;&amp; xdotool type &#39;&quot;</span>+command+<span class="stringliteral">&quot;&#39; &amp;&amp; xdotool key KP_Enter &amp;&quot;</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    system(<span class="stringliteral">&quot;grsisort -l&quot;</span>);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">  136</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a>(){</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">bool</span> done=0;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">while</span>(!done){</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">struct </span>stat buf;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        done=(stat(<span class="stringliteral">&quot;done&quot;</span>, &amp;buf)== 0);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    sleep(3);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done)&quot;</span>);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;rm done&quot;</span>);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="comment">// Change window name to prevent confusion</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">  162</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a>(std::string command,std::string windowName){</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    std::vector&lt;std::thread&gt; threadpool;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    threadpool.push_back(std::thread(<a class="code" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a>,command,windowName)); <span class="comment">// Run GRSISort macro</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    threadpool.push_back(std::thread(<a class="code" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a>)); <span class="comment">// Quit GRSISort after it opens windowfocus</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j=0;j&lt;threadpool.size();j++) threadpool[j].join(); <span class="comment">//Rejoin threads</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">  182</a></span>&#160;std::string <a class="code" href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a>(std::string subject, <span class="keyword">const</span> std::string&amp; search, <span class="keyword">const</span> std::string&amp; replace) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">size_t</span> pos = 0;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">while</span> ((pos = subject.find(search, pos)) != std::string::npos) {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;         subject.replace(pos, search.length(), replace);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;         pos += replace.length();</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> subject;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;}</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">  202</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">directoryContains</a>(std::string dir){</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordtype">char</span> run_path[256];</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    getcwd(run_path, 255);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    std::string path = run_path;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">if</span>(path.find(dir)==std::string::npos){</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Warning, not running in &quot;</span>+dir+<span class="stringliteral">&quot;, which may cause out of storage issues. Please consider running from &quot;</span>+dir+<span class="stringliteral">&quot;. Press enter to quit or c then enter to continue.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordtype">char</span> input[2];</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        std::cin.getline(input,2);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keywordflow">if</span>(input[0]!=<span class="charliteral">&#39;c&#39;</span>&amp;&amp;input[0]!=<span class="charliteral">&#39;C&#39;</span>) <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">  226</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">directoryCheck</a>(std::string dir){</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">char</span> run_path[256];</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    getcwd(run_path, 255);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    std::string path = run_path;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">if</span>(path != dir){</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Warning, not running in &quot;</span>+dir+<span class="stringliteral">&quot;, which may cause out of storage issues. Please consider running from &quot;</span>+dir+<span class="stringliteral">&quot;. Press enter to quit or c then enter to continue.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordtype">char</span> input[2];</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        std::cin.getline(input,2);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">if</span>(input[0]!=<span class="charliteral">&#39;c&#39;</span>&amp;&amp;input[0]!=<span class="charliteral">&#39;C&#39;</span>) <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    }</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">  250</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty</a>(std::string dir){</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordtype">int</span> i, ret=system((<span class="stringliteral">&quot;DIR=&#39;&quot;</span>+dir+<span class="stringliteral">&quot;&#39;;[ \&quot;$(ls -A $DIR)\&quot; ] &amp;&amp; exit 1 || exit 0&quot;</span>).c_str());</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    i=WEXITSTATUS(ret); <span class="comment">// Get return value.</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">if</span>(i==0) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">while</span>(1){</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Directory not empty. Press c then enter to clean, press s then enter to skip, or press e then enter to exit.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        std::string input;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        std::cin &gt;&gt; input;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;c&#39;</span>||input[0]==<span class="charliteral">&#39;C&#39;</span>){</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Cleaning directory.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;rm -f &quot;</span>+dir+<span class="stringliteral">&quot;/*&quot;</span>);</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        }</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;s&#39;</span>||input[0]==<span class="charliteral">&#39;S&#39;</span>){</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Skipping clean directory.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        }</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;e&#39;</span>||input[0]==<span class="charliteral">&#39;E&#39;</span>){</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Exiting.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Error. &quot;</span>;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    }</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">   49</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(std::string command,<span class="keywordtype">int</span> nice=0){</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::cout &lt;&lt; command + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::string shell = <span class="stringliteral">&quot;\</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="stringliteral">    #!/bin/bash \n\</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="stringliteral">    source ~/.bashrc\n\</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="stringliteral">    renice -n &quot;</span>+std::to_string(nice)+<span class="stringliteral">&quot; -p $$\n\</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="stringliteral">    &quot;</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> i,ret = system((shell+command).c_str());</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    i=WEXITSTATUS(ret); <span class="comment">// Get return value.</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">   72</a></span>&#160;std::string <a class="code" href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">beautify_duration</a>(std::chrono::seconds input_seconds)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">using namespace </span>std::chrono;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">typedef</span> duration&lt;int, std::ratio&lt;86400&gt;&gt; days;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> d = duration_cast&lt;days&gt;(input_seconds);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    input_seconds -= d;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">auto</span> h = duration_cast&lt;hours&gt;(input_seconds);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    input_seconds -= h;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">auto</span> m = duration_cast&lt;minutes&gt;(input_seconds);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    input_seconds -= m;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">auto</span> s = duration_cast&lt;seconds&gt;(input_seconds);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">auto</span> dc = d.count();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">auto</span> hc = h.count();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">auto</span> mc = m.count();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">auto</span> sc = s.count();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    std::stringstream ss;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    ss.fill(<span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (dc) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        ss &lt;&lt; d.count() &lt;&lt; <span class="stringliteral">&quot;d&quot;</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (dc || hc) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span> (dc) { ss &lt;&lt; std::setw(2); } <span class="comment">//pad if second set of numbers</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        ss &lt;&lt; h.count() &lt;&lt; <span class="stringliteral">&quot;h&quot;</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (dc || hc || mc) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span> (dc || hc) { ss &lt;&lt; std::setw(2); }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ss &lt;&lt; m.count() &lt;&lt; <span class="stringliteral">&quot;m&quot;</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (dc || hc || mc || sc) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (dc || hc || mc) { ss &lt;&lt; std::setw(2); }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        ss &lt;&lt; s.count() &lt;&lt; <span class="charliteral">&#39;s&#39;</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a>(std::string command,std::string windowName){</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;xdotool windowactivate $(xdotool search --name &#39;&quot;</span>+windowName+<span class="stringliteral">&quot;&#39;) &amp;&amp; xdotool windowfocus $(xdotool search --name &#39;&quot;</span>+windowName+<span class="stringliteral">&quot;&#39;) ; sleep 2 &amp;&amp; xdotool type &#39;&quot;</span>+command+<span class="stringliteral">&quot;&#39; &amp;&amp; xdotool key KP_Enter &amp;&quot;</span>);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    system(<span class="stringliteral">&quot;grsisort -l&quot;</span>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">  137</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a>(){</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">bool</span> done=0;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">while</span>(!done){</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">struct </span>stat buf;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        done=(stat(<span class="stringliteral">&quot;done&quot;</span>, &amp;buf)== 0);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    sleep(3);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done) ; kill -s INT $(cat done)&quot;</span>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;rm done&quot;</span>);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">// Change window name to prevent confusion</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">  163</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a>(std::string command,std::string windowName){</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    std::vector&lt;std::thread&gt; threadpool;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    threadpool.push_back(std::thread(<a class="code" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a>,command,windowName)); <span class="comment">// Run GRSISort macro</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    threadpool.push_back(std::thread(<a class="code" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a>)); <span class="comment">// Quit GRSISort after it opens windowfocus</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j=0;j&lt;threadpool.size();j++) threadpool[j].join(); <span class="comment">//Rejoin threads</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">  183</a></span>&#160;std::string <a class="code" href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a>(std::string subject, <span class="keyword">const</span> std::string&amp; search, <span class="keyword">const</span> std::string&amp; replace) {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordtype">size_t</span> pos = 0;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">while</span> ((pos = subject.find(search, pos)) != std::string::npos) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;         subject.replace(pos, search.length(), replace);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;         pos += replace.length();</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> subject;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">  203</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">directoryContains</a>(std::string dir){</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">char</span> run_path[256];</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    getcwd(run_path, 255);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    std::string path = run_path;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">if</span>(path.find(dir)==std::string::npos){</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Warning, not running in &quot;</span>+dir+<span class="stringliteral">&quot;, which may cause out of storage issues. Please consider running from &quot;</span>+dir+<span class="stringliteral">&quot;. Press enter to quit or c then enter to continue.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordtype">char</span> input[2];</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        std::cin.getline(input,2);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">if</span>(input[0]!=<span class="charliteral">&#39;c&#39;</span>&amp;&amp;input[0]!=<span class="charliteral">&#39;C&#39;</span>) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">  227</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">directoryCheck</a>(std::string dir){</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">char</span> run_path[256];</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    getcwd(run_path, 255);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    std::string path = run_path;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordflow">if</span>(path != dir){</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Warning, not running in &quot;</span>+dir+<span class="stringliteral">&quot;, which may cause out of storage issues. Please consider running from &quot;</span>+dir+<span class="stringliteral">&quot;. Press enter to quit or c then enter to continue.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordtype">char</span> input[2];</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        std::cin.getline(input,2);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">if</span>(input[0]!=<span class="charliteral">&#39;c&#39;</span>&amp;&amp;input[0]!=<span class="charliteral">&#39;C&#39;</span>) <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">  251</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty</a>(std::string dir){</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordtype">int</span> i, ret=system((<span class="stringliteral">&quot;DIR=&#39;&quot;</span>+dir+<span class="stringliteral">&quot;&#39;;[ \&quot;$(ls -A $DIR)\&quot; ] &amp;&amp; exit 1 || exit 0&quot;</span>).c_str());</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    i=WEXITSTATUS(ret); <span class="comment">// Get return value.</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span>(i==0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">while</span>(1){</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Directory not empty. Press c then enter to clean, press s then enter to skip, or press e then enter to exit.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        std::string input;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        std::cin &gt;&gt; input;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;c&#39;</span>||input[0]==<span class="charliteral">&#39;C&#39;</span>){</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Cleaning directory.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;rm -f &quot;</span>+dir+<span class="stringliteral">&quot;/*&quot;</span>);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        }</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;s&#39;</span>||input[0]==<span class="charliteral">&#39;S&#39;</span>){</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Skipping clean directory.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        }</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <span class="keywordflow">if</span>(input[0]==<span class="charliteral">&#39;e&#39;</span>||input[0]==<span class="charliteral">&#39;E&#39;</span>){</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Exiting.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Error. &quot;</span>;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">  283</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root</a>(std::string command){</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;root -q -e &#39;&quot;</span>+command+<span class="stringliteral">&quot;&#39;&quot;</span>);</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;}</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
-<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aa5592fc113f9fea784f0727b6c3af74e">  287</a></span>&#160;<span class="preprocessor">#define BACKWARD_HAS_DW 1</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;backward-cpp/backward.hpp&quot;</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="namespacebackward.html">  289</a></span>&#160;<span class="keyword">namespace </span>backward {</div>
-<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">  290</a></span>&#160;backward::SignalHandling <a class="code" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">sh</a>;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
-<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">  301</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a>(){</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    backward::StackTrace st; st.load_here(32);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    backward::Printer p;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    p.object = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    p.color_mode = backward::ColorMode::always;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    p.address = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    p.print(st, stdout);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
-<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="pipeline_8h.html#afbbe60998191e221b593087427d2dd94">  330</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#afbbe60998191e221b593087427d2dd94">email</a>(std::string destination, std::string subject, std::string message, std::string key){</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;}</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;</div>
-<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">  350</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a>(std::string message, std::string key){</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    system((<span class="stringliteral">&quot;curl -X POST -H &#39;Content-type: application/json&#39; --data \&quot;{&#39;text&#39;:&#39;&quot;</span>+message+<span class="stringliteral">&quot;&#39;}\&quot; &quot;</span>+key).c_str());</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;}</div>
-<div class="ttc" id="pipeline_8h_html_a549ba0b1a44f344b3a6849ad445f990b"><div class="ttname"><a href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a></div><div class="ttdeci">void slack(std::string message, std::string key)</div><div class="ttdoc">Slack Message. </div><div class="ttdef"><b>Definition:</b> pipeline.h:350</div></div>
-<div class="ttc" id="pipeline_8h_html_a77f79fe88017c77fe691dca577d3fe49"><div class="ttname"><a href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a></div><div class="ttdeci">std::string ReplaceString(std::string subject, const std::string &amp;search, const std::string &amp;replace)</div><div class="ttdoc">Replace all instances of a string in another string with a third string. </div><div class="ttdef"><b>Definition:</b> pipeline.h:182</div></div>
-<div class="ttc" id="pipeline_8h_html_aec6fd5a79f5b78a7494fa42e8f26ad6c"><div class="ttname"><a href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a></div><div class="ttdeci">void gs(std::string command, std::string windowName)</div><div class="ttdoc">Executes GRSISort with given command. </div><div class="ttdef"><b>Definition:</b> pipeline.h:119</div></div>
-<div class="ttc" id="pipeline_8h_html_a3ef22614541f686d75eee2e14a45f781"><div class="ttname"><a href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a></div><div class="ttdeci">void grsisort(std::string command, std::string windowName)</div><div class="ttdoc">Executes, then quits, command in GRSISort. </div><div class="ttdef"><b>Definition:</b> pipeline.h:162</div></div>
-<div class="ttc" id="pipeline_8h_html_a660c91225fdf7618918ecbe2248f3ba2"><div class="ttname"><a href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root</a></div><div class="ttdeci">int root(std::string command)</div><div class="ttdoc">Executes command in ROOT. </div><div class="ttdef"><b>Definition:</b> pipeline.h:283</div></div>
-<div class="ttc" id="pipeline_8h_html_afbbe60998191e221b593087427d2dd94"><div class="ttname"><a href="pipeline_8h.html#afbbe60998191e221b593087427d2dd94">email</a></div><div class="ttdeci">void email(std::string destination, std::string subject, std::string message, std::string key)</div><div class="ttdoc">Emails user. </div><div class="ttdef"><b>Definition:</b> pipeline.h:330</div></div>
-<div class="ttc" id="pipeline_8h_html_a086056b68efd94bcb1ebf2c1811f73fd"><div class="ttname"><a href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a></div><div class="ttdeci">int bash(std::string command, int nice=0)</div><div class="ttdoc">Call the given command in bash. </div><div class="ttdef"><b>Definition:</b> pipeline.h:48</div></div>
-<div class="ttc" id="namespacebackward_html_a6be34a42939faf0fbcfe077ce9faf9ae"><div class="ttname"><a href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></div><div class="ttdeci">backward::SignalHandling sh</div><div class="ttdef"><b>Definition:</b> pipeline.h:290</div></div>
-<div class="ttc" id="pipeline_8h_html_a2463a3acef2df4c951ce942a3229e44e"><div class="ttname"><a href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a></div><div class="ttdeci">void quit()</div><div class="ttdoc">Quits GRSISort when done file appears. </div><div class="ttdef"><b>Definition:</b> pipeline.h:136</div></div>
-<div class="ttc" id="pipeline_8h_html_a09000040842667e29e69506b1846b5ad"><div class="ttname"><a href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">directoryContains</a></div><div class="ttdeci">bool directoryContains(std::string dir)</div><div class="ttdoc">Check current directory contains the string provided. </div><div class="ttdef"><b>Definition:</b> pipeline.h:202</div></div>
-<div class="ttc" id="pipeline_8h_html_afb09a1435472c5873b47e4130041377d"><div class="ttname"><a href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty</a></div><div class="ttdeci">bool directoryEmpty(std::string dir)</div><div class="ttdoc">Check if directory is empty. </div><div class="ttdef"><b>Definition:</b> pipeline.h:250</div></div>
-<div class="ttc" id="pipeline_8h_html_a3078377750fdf5be888866a42a5b7b23"><div class="ttname"><a href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">directoryCheck</a></div><div class="ttdeci">bool directoryCheck(std::string dir)</div><div class="ttdoc">Check run directory. </div><div class="ttdef"><b>Definition:</b> pipeline.h:226</div></div>
-<div class="ttc" id="pipeline_8h_html_a24cf04843051b92ae1ff83445a04f0ad"><div class="ttname"><a href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a></div><div class="ttdeci">void Backtrace()</div><div class="ttdoc">Prints backtrace to stdout. </div><div class="ttdef"><b>Definition:</b> pipeline.h:301</div></div>
-<div class="ttc" id="pipeline_8h_html_a821f34848c3c809507ed6eebb1ed2810"><div class="ttname"><a href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">beautify_duration</a></div><div class="ttdeci">std::string beautify_duration(std::chrono::seconds input_seconds)</div><div class="ttdoc">Returns a human-readable string of a duration. </div><div class="ttdef"><b>Definition:</b> pipeline.h:71</div></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
+<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">  284</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root</a>(std::string command){</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;root -q -e &#39;&quot;</span>+command+<span class="stringliteral">&quot;&#39;&quot;</span>);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;}</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;</div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aa5592fc113f9fea784f0727b6c3af74e">  288</a></span>&#160;<span class="preprocessor">#define BACKWARD_HAS_DW 1</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;backward-cpp/backward.hpp&quot;</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="namespacebackward.html">  290</a></span>&#160;<span class="keyword">namespace </span>backward {</div>
+<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">  292</a></span>&#160;backward::SignalHandling <a class="code" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">sh</a>;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">  303</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a>(){</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    backward::StackTrace st; st.load_here(32);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    backward::Printer p;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    p.object = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    p.color_mode = backward::ColorMode::always;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    p.address = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    p.print(st, stdout);</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
+<div class="line"><a name="l00325"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">  325</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a>(std::string destination, std::string message){</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;echo &quot;</span>+message+<span class="stringliteral">&quot; | sendmail &quot;</span>+destination);</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;}</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
+<div class="line"><a name="l00346"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">  346</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a>(std::string message, std::string key){</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    system((<span class="stringliteral">&quot;curl -X POST -H &#39;Content-type: application/json&#39; --data \&quot;{&#39;text&#39;:&#39;&quot;</span>+message+<span class="stringliteral">&quot;&#39;}\&quot; &quot;</span>+key).c_str());</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;}</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
+<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">  366</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a>(std::string original, std::string replace, std::string input, std::string output){</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    std::ifstream filein(input);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    std::ofstream fileout(output);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">if</span>(!filein || !fileout)</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    {</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Error opening files!&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    }</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    std::string strTemp;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">while</span>(!filein.eof())</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    {</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        getline(filein,strTemp);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordflow">if</span>(strTemp == original) strTemp = replace;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        fileout &lt;&lt; strTemp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    }</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}</div>
+<div class="ttc" id="pipeline_8h_html_a549ba0b1a44f344b3a6849ad445f990b"><div class="ttname"><a href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a></div><div class="ttdeci">void slack(std::string message, std::string key)</div><div class="ttdoc">Slack Message. </div><div class="ttdef"><b>Definition:</b> pipeline.h:346</div></div>
+<div class="ttc" id="pipeline_8h_html_a77f79fe88017c77fe691dca577d3fe49"><div class="ttname"><a href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a></div><div class="ttdeci">std::string ReplaceString(std::string subject, const std::string &amp;search, const std::string &amp;replace)</div><div class="ttdoc">Replace all instances of a string in another string with a third string. </div><div class="ttdef"><b>Definition:</b> pipeline.h:183</div></div>
+<div class="ttc" id="pipeline_8h_html_aec6fd5a79f5b78a7494fa42e8f26ad6c"><div class="ttname"><a href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a></div><div class="ttdeci">void gs(std::string command, std::string windowName)</div><div class="ttdoc">Executes GRSISort with given command. </div><div class="ttdef"><b>Definition:</b> pipeline.h:120</div></div>
+<div class="ttc" id="pipeline_8h_html_a3ef22614541f686d75eee2e14a45f781"><div class="ttname"><a href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a></div><div class="ttdeci">void grsisort(std::string command, std::string windowName)</div><div class="ttdoc">Executes, then quits, command in GRSISort. </div><div class="ttdef"><b>Definition:</b> pipeline.h:163</div></div>
+<div class="ttc" id="pipeline_8h_html_a660c91225fdf7618918ecbe2248f3ba2"><div class="ttname"><a href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root</a></div><div class="ttdeci">int root(std::string command)</div><div class="ttdoc">Executes command in ROOT. </div><div class="ttdef"><b>Definition:</b> pipeline.h:284</div></div>
+<div class="ttc" id="pipeline_8h_html_a086056b68efd94bcb1ebf2c1811f73fd"><div class="ttname"><a href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a></div><div class="ttdeci">int bash(std::string command, int nice=0)</div><div class="ttdoc">Call the given command in bash. </div><div class="ttdef"><b>Definition:</b> pipeline.h:49</div></div>
+<div class="ttc" id="namespacebackward_html_a6be34a42939faf0fbcfe077ce9faf9ae"><div class="ttname"><a href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></div><div class="ttdeci">backward::SignalHandling sh</div><div class="ttdoc">Singal hander - prints pretty debug output if there is an error. </div><div class="ttdef"><b>Definition:</b> pipeline.h:292</div></div>
+<div class="ttc" id="pipeline_8h_html_a2463a3acef2df4c951ce942a3229e44e"><div class="ttname"><a href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a></div><div class="ttdeci">void quit()</div><div class="ttdoc">Quits GRSISort when done file appears. </div><div class="ttdef"><b>Definition:</b> pipeline.h:137</div></div>
+<div class="ttc" id="pipeline_8h_html_a09000040842667e29e69506b1846b5ad"><div class="ttname"><a href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">directoryContains</a></div><div class="ttdeci">bool directoryContains(std::string dir)</div><div class="ttdoc">Check current directory contains the string provided. </div><div class="ttdef"><b>Definition:</b> pipeline.h:203</div></div>
+<div class="ttc" id="pipeline_8h_html_a930210ae7f13b61a96c4438c8970ffa9"><div class="ttname"><a href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a></div><div class="ttdeci">int replaceLineInFile(std::string original, std::string replace, std::string input, std::string output)</div><div class="ttdoc">Change a line in a file, writing to a new file. </div><div class="ttdef"><b>Definition:</b> pipeline.h:366</div></div>
+<div class="ttc" id="pipeline_8h_html_aeb85d766b6a2f518432022be3ee57a28"><div class="ttname"><a href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a></div><div class="ttdeci">void email(std::string destination, std::string message)</div><div class="ttdoc">Emails user. </div><div class="ttdef"><b>Definition:</b> pipeline.h:325</div></div>
+<div class="ttc" id="pipeline_8h_html_afb09a1435472c5873b47e4130041377d"><div class="ttname"><a href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty</a></div><div class="ttdeci">bool directoryEmpty(std::string dir)</div><div class="ttdoc">Check if directory is empty. </div><div class="ttdef"><b>Definition:</b> pipeline.h:251</div></div>
+<div class="ttc" id="pipeline_8h_html_a3078377750fdf5be888866a42a5b7b23"><div class="ttname"><a href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">directoryCheck</a></div><div class="ttdeci">bool directoryCheck(std::string dir)</div><div class="ttdoc">Check run directory. </div><div class="ttdef"><b>Definition:</b> pipeline.h:227</div></div>
+<div class="ttc" id="pipeline_8h_html_a24cf04843051b92ae1ff83445a04f0ad"><div class="ttname"><a href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a></div><div class="ttdeci">void Backtrace()</div><div class="ttdoc">Prints backtrace to stdout. </div><div class="ttdef"><b>Definition:</b> pipeline.h:303</div></div>
+<div class="ttc" id="pipeline_8h_html_a821f34848c3c809507ed6eebb1ed2810"><div class="ttname"><a href="pipeline_8h.html#a821f34848c3c809507ed6eebb1ed2810">beautify_duration</a></div><div class="ttdeci">std::string beautify_duration(std::chrono::seconds input_seconds)</div><div class="ttdoc">Returns a human-readable string of a duration. </div><div class="ttdef"><b>Definition:</b> pipeline.h:72</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

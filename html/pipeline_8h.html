@@ -127,6 +127,7 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 <code>#include &lt;iomanip&gt;</code><br/>
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;cstring&gt;</code><br/>
+<code>#include &lt;fstream&gt;</code><br/>
 <code>#include &quot;backward-cpp/backward.hpp&quot;</code><br/>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
@@ -176,16 +177,20 @@ Functions</h2></td></tr>
 <tr class="memitem:a24cf04843051b92ae1ff83445a04f0ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a> ()</td></tr>
 <tr class="memdesc:a24cf04843051b92ae1ff83445a04f0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints backtrace to stdout.  <a href="#a24cf04843051b92ae1ff83445a04f0ad">More...</a><br/></td></tr>
 <tr class="separator:a24cf04843051b92ae1ff83445a04f0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbbe60998191e221b593087427d2dd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#afbbe60998191e221b593087427d2dd94">email</a> (std::string destination, std::string subject, std::string message, std::string key)</td></tr>
-<tr class="memdesc:afbbe60998191e221b593087427d2dd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emails user.  <a href="#afbbe60998191e221b593087427d2dd94">More...</a><br/></td></tr>
-<tr class="separator:afbbe60998191e221b593087427d2dd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb85d766b6a2f518432022be3ee57a28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a> (std::string destination, std::string message)</td></tr>
+<tr class="memdesc:aeb85d766b6a2f518432022be3ee57a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emails user.  <a href="#aeb85d766b6a2f518432022be3ee57a28">More...</a><br/></td></tr>
+<tr class="separator:aeb85d766b6a2f518432022be3ee57a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a549ba0b1a44f344b3a6849ad445f990b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a> (std::string message, std::string key)</td></tr>
 <tr class="memdesc:a549ba0b1a44f344b3a6849ad445f990b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slack Message.  <a href="#a549ba0b1a44f344b3a6849ad445f990b">More...</a><br/></td></tr>
 <tr class="separator:a549ba0b1a44f344b3a6849ad445f990b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a930210ae7f13b61a96c4438c8970ffa9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a> (std::string original, std::string replace, std::string input, std::string output)</td></tr>
+<tr class="memdesc:a930210ae7f13b61a96c4438c8970ffa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change a line in a file, writing to a new file.  <a href="#a930210ae7f13b61a96c4438c8970ffa9">More...</a><br/></td></tr>
+<tr class="separator:a930210ae7f13b61a96c4438c8970ffa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memItemLeft" align="right" valign="top">backward::SignalHandling&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></td></tr>
+<tr class="memdesc:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singal hander - prints pretty debug output if there is an error.  <a href="#a6be34a42939faf0fbcfe077ce9faf9ae">More...</a><br/></td></tr>
 <tr class="separator:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -263,7 +268,7 @@ Variables</h2></td></tr>
 <h3>Notes:</h3>
 <p>Your bashrc must be configured to only run commands that require interactivity if interactivity is present, otherwise problems may insue. </p>
 
-<p>Referenced by <a class="el" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty()</a>, <a class="el" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs()</a>, <a class="el" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit()</a>, and <a class="el" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root()</a>.</p>
+<p>Referenced by <a class="el" href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty()</a>, <a class="el" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email()</a>, <a class="el" href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs()</a>, <a class="el" href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit()</a>, and <a class="el" href="pipeline_8h.html#a660c91225fdf7618918ecbe2248f3ba2">root()</a>.</p>
 
 </div>
 </div>
@@ -359,7 +364,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afbbe60998191e221b593087427d2dd94"></a>
+<a class="anchor" id="aeb85d766b6a2f518432022be3ee57a28"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -373,19 +378,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>subject</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -396,15 +389,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Emails user. </p>
-<h2>Email user (incomplete, not working.)</h2>
+<h2>Email user</h2>
 <h3>Arguments:</h3>
-<p><code>string destination</code> - Email to send to</p>
-<p><code>string subject</code> - Subject of email</p>
-<p><code>string message</code> - Message of Email</p>
-<p><code>string key</code> - GMail API key for sender</p>
+<p><code>string destination</code> - Email to send to <code>string message</code> - Message of Email</p>
 <h3>Notes:</h3>
-<p>To email when program is complete, in your main, add the following line: <code>std::atexit(email(destination,subject,message,key));</code></p>
-<p>You can also set this to email on errors using: `` </p>
+<p>To email when program is complete, in your main, add the following line: <code>std::atexit(email(destination,message));</code> </p>
 
 </div>
 </div>
@@ -498,6 +487,52 @@ Variables</h2></td></tr>
 <p>This is a workaround for GRSISort's crashing at the end of the simulation. All of the analysis is complete, so data integrity is preserved. </p>
 
 <p>Referenced by <a class="el" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a930210ae7f13b61a96c4438c8970ffa9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int replaceLineInFile </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>original</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>replace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change a line in a file, writing to a new file. </p>
+<h2>Change a line in a file, writing to a new file (Modifed from code written by Anton on StackOverflow)</h2>
+<h3>Arguments:</h3>
+<p><code>string original</code> - String to replace</p>
+<p><code>string replace</code> - String to replace original with</p>
+<p><code>string input</code> - Filename of input file</p>
+<p><code>string output</code> - Filename of output file </p>
 
 </div>
 </div>
