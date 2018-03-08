@@ -277,36 +277,36 @@ $(document).ready(function(){initNavTree('pipeline_8h_source.html','');});
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
-<div class="line"><a name="l00325"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">  325</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a>(std::string destination, std::string message){</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;echo &quot;</span>+message+<span class="stringliteral">&quot; | sendmail &quot;</span>+destination);</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;}</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
-<div class="line"><a name="l00346"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">  346</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a>(std::string message, std::string key){</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    system((<span class="stringliteral">&quot;curl -X POST -H &#39;Content-type: application/json&#39; --data \&quot;{&#39;text&#39;:&#39;&quot;</span>+message+<span class="stringliteral">&quot;&#39;}\&quot; &quot;</span>+key).c_str());</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;}</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
-<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">  366</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a>(std::string original, std::string replace, std::string input, std::string output){</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    std::ifstream filein(input);</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    std::ofstream fileout(output);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">if</span>(!filein || !fileout)</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    {</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Error opening files!&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    }</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    std::string strTemp;</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">while</span>(!filein.eof())</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        getline(filein,strTemp);</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        <span class="keywordflow">if</span>(strTemp == original) strTemp = replace;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        fileout &lt;&lt; strTemp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}</div>
-<div class="ttc" id="pipeline_8h_html_a549ba0b1a44f344b3a6849ad445f990b"><div class="ttname"><a href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a></div><div class="ttdeci">void slack(std::string message, std::string key)</div><div class="ttdoc">Slack Message. </div><div class="ttdef"><b>Definition:</b> pipeline.h:346</div></div>
+<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">  327</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a>(std::string destination, std::string message){</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="pipeline_8h.html#a086056b68efd94bcb1ebf2c1811f73fd">bash</a>(<span class="stringliteral">&quot;echo &quot;</span>+message+<span class="stringliteral">&quot; | sendmail -F JARVIS &quot;</span>+destination);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;}</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
+<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">  348</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a>(std::string message, std::string key){</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    system((<span class="stringliteral">&quot;curl -X POST -H &#39;Content-type: application/json&#39; --data \&quot;{&#39;text&#39;:&#39;&quot;</span>+message+<span class="stringliteral">&quot;&#39;}\&quot; &quot;</span>+key).c_str());</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;}</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
+<div class="line"><a name="l00368"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">  368</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a>(std::string original, std::string replace, std::string input, std::string output){</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    std::ifstream filein(input);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    std::ofstream fileout(output);</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordflow">if</span>(!filein || !fileout)</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;Error opening files!&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    }</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    std::string strTemp;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">while</span>(!filein.eof())</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    {</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        getline(filein,strTemp);</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        <span class="keywordflow">if</span>(strTemp == original) strTemp = replace;</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        fileout &lt;&lt; strTemp &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;}</div>
+<div class="ttc" id="pipeline_8h_html_a549ba0b1a44f344b3a6849ad445f990b"><div class="ttname"><a href="pipeline_8h.html#a549ba0b1a44f344b3a6849ad445f990b">slack</a></div><div class="ttdeci">void slack(std::string message, std::string key)</div><div class="ttdoc">Slack Message. </div><div class="ttdef"><b>Definition:</b> pipeline.h:348</div></div>
 <div class="ttc" id="pipeline_8h_html_a77f79fe88017c77fe691dca577d3fe49"><div class="ttname"><a href="pipeline_8h.html#a77f79fe88017c77fe691dca577d3fe49">ReplaceString</a></div><div class="ttdeci">std::string ReplaceString(std::string subject, const std::string &amp;search, const std::string &amp;replace)</div><div class="ttdoc">Replace all instances of a string in another string with a third string. </div><div class="ttdef"><b>Definition:</b> pipeline.h:183</div></div>
 <div class="ttc" id="pipeline_8h_html_aec6fd5a79f5b78a7494fa42e8f26ad6c"><div class="ttname"><a href="pipeline_8h.html#aec6fd5a79f5b78a7494fa42e8f26ad6c">gs</a></div><div class="ttdeci">void gs(std::string command, std::string windowName)</div><div class="ttdoc">Executes GRSISort with given command. </div><div class="ttdef"><b>Definition:</b> pipeline.h:120</div></div>
 <div class="ttc" id="pipeline_8h_html_a3ef22614541f686d75eee2e14a45f781"><div class="ttname"><a href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort</a></div><div class="ttdeci">void grsisort(std::string command, std::string windowName)</div><div class="ttdoc">Executes, then quits, command in GRSISort. </div><div class="ttdef"><b>Definition:</b> pipeline.h:163</div></div>
@@ -315,8 +315,8 @@ $(document).ready(function(){initNavTree('pipeline_8h_source.html','');});
 <div class="ttc" id="namespacebackward_html_a6be34a42939faf0fbcfe077ce9faf9ae"><div class="ttname"><a href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></div><div class="ttdeci">backward::SignalHandling sh</div><div class="ttdoc">Singal hander - prints pretty debug output if there is an error. </div><div class="ttdef"><b>Definition:</b> pipeline.h:292</div></div>
 <div class="ttc" id="pipeline_8h_html_a2463a3acef2df4c951ce942a3229e44e"><div class="ttname"><a href="pipeline_8h.html#a2463a3acef2df4c951ce942a3229e44e">quit</a></div><div class="ttdeci">void quit()</div><div class="ttdoc">Quits GRSISort when done file appears. </div><div class="ttdef"><b>Definition:</b> pipeline.h:137</div></div>
 <div class="ttc" id="pipeline_8h_html_a09000040842667e29e69506b1846b5ad"><div class="ttname"><a href="pipeline_8h.html#a09000040842667e29e69506b1846b5ad">directoryContains</a></div><div class="ttdeci">bool directoryContains(std::string dir)</div><div class="ttdoc">Check current directory contains the string provided. </div><div class="ttdef"><b>Definition:</b> pipeline.h:203</div></div>
-<div class="ttc" id="pipeline_8h_html_a930210ae7f13b61a96c4438c8970ffa9"><div class="ttname"><a href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a></div><div class="ttdeci">int replaceLineInFile(std::string original, std::string replace, std::string input, std::string output)</div><div class="ttdoc">Change a line in a file, writing to a new file. </div><div class="ttdef"><b>Definition:</b> pipeline.h:366</div></div>
-<div class="ttc" id="pipeline_8h_html_aeb85d766b6a2f518432022be3ee57a28"><div class="ttname"><a href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a></div><div class="ttdeci">void email(std::string destination, std::string message)</div><div class="ttdoc">Emails user. </div><div class="ttdef"><b>Definition:</b> pipeline.h:325</div></div>
+<div class="ttc" id="pipeline_8h_html_a930210ae7f13b61a96c4438c8970ffa9"><div class="ttname"><a href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a></div><div class="ttdeci">int replaceLineInFile(std::string original, std::string replace, std::string input, std::string output)</div><div class="ttdoc">Change a line in a file, writing to a new file. </div><div class="ttdef"><b>Definition:</b> pipeline.h:368</div></div>
+<div class="ttc" id="pipeline_8h_html_aeb85d766b6a2f518432022be3ee57a28"><div class="ttname"><a href="pipeline_8h.html#aeb85d766b6a2f518432022be3ee57a28">email</a></div><div class="ttdeci">void email(std::string destination, std::string message)</div><div class="ttdoc">Emails user. </div><div class="ttdef"><b>Definition:</b> pipeline.h:327</div></div>
 <div class="ttc" id="pipeline_8h_html_afb09a1435472c5873b47e4130041377d"><div class="ttname"><a href="pipeline_8h.html#afb09a1435472c5873b47e4130041377d">directoryEmpty</a></div><div class="ttdeci">bool directoryEmpty(std::string dir)</div><div class="ttdoc">Check if directory is empty. </div><div class="ttdef"><b>Definition:</b> pipeline.h:251</div></div>
 <div class="ttc" id="pipeline_8h_html_a3078377750fdf5be888866a42a5b7b23"><div class="ttname"><a href="pipeline_8h.html#a3078377750fdf5be888866a42a5b7b23">directoryCheck</a></div><div class="ttdeci">bool directoryCheck(std::string dir)</div><div class="ttdoc">Check run directory. </div><div class="ttdef"><b>Definition:</b> pipeline.h:227</div></div>
 <div class="ttc" id="pipeline_8h_html_a24cf04843051b92ae1ff83445a04f0ad"><div class="ttname"><a href="pipeline_8h.html#a24cf04843051b92ae1ff83445a04f0ad">Backtrace</a></div><div class="ttdeci">void Backtrace()</div><div class="ttdoc">Prints backtrace to stdout. </div><div class="ttdef"><b>Definition:</b> pipeline.h:303</div></div>

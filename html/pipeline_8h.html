@@ -393,7 +393,8 @@ Variables</h2></td></tr>
 <h3>Arguments:</h3>
 <p><code>string destination</code> - Email to send to <code>string message</code> - Message of Email</p>
 <h3>Notes:</h3>
-<p>To email when program is complete, in your main, add the following line: <code>std::atexit(email(destination,message));</code> </p>
+<p>To email when program is complete, in your main, add the following line: <code>std::atexit(email(destination,message));</code></p>
+<p>Also, please use this sparingly. If any major email providers decide that it is spam, then its going to be broken for everyone on cronos forever. </p>
 
 </div>
 </div>
