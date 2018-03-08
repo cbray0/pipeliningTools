@@ -321,9 +321,11 @@ void Backtrace(){
 
  ### Notes:
  To email when program is complete, in your main, add the following line: `std::atexit(email(destination,message));`
+
+ Also, please use this sparingly. If any major email providers decide that it is spam, then its going to be broken for everyone on cronos forever.
 */
 void email(std::string destination, std::string message){
-    bash("echo "+message+" | sendmail "+destination);
+    bash("echo "+message+" | sendmail -F JARVIS "+destination);
     return;
 }
 
