@@ -1,3 +1,6 @@
 [submodule "backward-cpp"]
 	path = backward-cpp
 	url = https://github.com/bombela/backward-cpp
+[submodule "slacking"]
+	path = slacking
+	url = https://github.com/coin-au-carre/slacking
