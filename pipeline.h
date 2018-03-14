@@ -9,7 +9,7 @@
 
     This file contains a variety of useful functions for automating simulation execution.
 
-    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g`
+    The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl`
 
     The following arguments are recommended: `-Ofast -Wall -g`
 
@@ -30,6 +30,8 @@
 #include <sys/stat.h>
 #include <cstring>
 #include <fstream>
+#include <atomic>
+#include <curl/curl.h>
 
 /**
  @brief Call the given command in bash
@@ -382,4 +384,135 @@ int replaceLineInFile(std::string original, std::string replace, std::string inp
         fileout << strTemp << "\n";
     }
     return 0;
+}
+
+/**
+@brief cURL helper function. Credit: Github:alghanmi.
+*/
+static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
+{
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
+
+std::string curl(std::string url){
+    CURL *curl;
+    CURLcode res;
+    std::string readBuffer;
+    curl = curl_easy_init();
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+        res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+    }
+    return readBuffer;
+}
+
+/**
+@brief Extract string from between other strings
+  ## Credit to Christopher Creutzig:StackOverflow
+
+  ### Arguments:
+  * `string in` - Input string to find in
+  * `string before` - String before target
+  * `string after` - String after target
+
+  ### Return value
+  Returns target string, the string between `before` and `after` in `in`.
+*/
+std::string between(std::string const &in, std::string const &before, std::string const &after) {
+    size_t beg = in.find(before);
+    if(beg==std::string::npos) return "";
+    beg += before.size();
+    size_t end = in.find(after, beg);
+    if(end==std::string::npos) return "";
+    return in.substr(beg, end-beg);
+}
+
+/**
+@brief URL Decode
+
+ ## Credit to tominko on StackOverflow.
+
+ ### Arguments:
+ * `string SRC` - String to decode
+
+ ### Return value
+ Decoded string
+*/
+std::string urlDecode(const std::string SRC) {
+    std::string ret;
+    char ch;
+    unsigned int i, ii;
+    for (i=0; i<SRC.length(); i++) {
+        if (int(SRC[i])==37) {
+            sscanf(SRC.substr(i+1,2).c_str(), "%x", &ii);
+            ch=static_cast<char>(ii);
+            ret+=ch;
+            i=i+2;
+        } else {
+            ret+=SRC[i];
+        }
+    }
+    return (ret);
+}
+
+/// Bool to tell external threads to exit
+std::atomic<bool> exitFlag;
+
+/**
+@brief Watch JARVIS front end (Incomplete)
+
+ ## Watches JARVIS bot front end for messages
+
+ ### Notes:
+ How to use:
+ First, start the bot in a new thread: `thread t(JARVIS, <inbox url>);`
+ At end of simulation, set exitFlag to 1 (tells thread to exit), then join the thread. 
+
+ ### Arguments:
+ * `string inbox` - Link to webhook inbox (use webhook inbox becaues cronos is behind a firewall). Link should look like this: http://api.webhookinbox.com/i/xxxxxxxx/
+*/
+void JARVIS(std::string inbox){
+    exitFlag=0;
+    while(!exitFlag){
+        try{
+            // Check if there are new requests from JARVIS front end
+            std::string request = curl(inbox+"items/?order=-created&max=1");
+
+            // Parse instruction
+            // std::cout << "Request:\n" << request << std::endl;
+            // Check that its the right one.
+            std::string filename = urlDecode(between(request,"text=","&"));
+            // std::cout << "Text:\n" << filename << std::endl;
+            std::string requestURL = urlDecode(between(request,"response_url=","&"));
+            // std::cout << "URL:\n" << requestURL << std::endl;
+            if(filename=="" || requestURL=="") continue;
+            system(("curl "+inbox+"in/ &> /dev/null").c_str()); // Overwrite last entry to prevent confusion
+
+            // Get info
+            std::ifstream fin(filename);
+            if(!fin.is_open()){
+                slack("Invalid status file.",requestURL);
+                continue;
+            }
+            fin.seekg(-1,std::ios_base::end); // Goto end of tile
+            char c = 'c';
+            while(c!='\n') { // Go back to start of last line
+                fin.unget();
+                fin.unget();
+                c=fin.get();
+            }
+            std::string lastLine; // Get last line
+            getline(fin,lastLine);
+            fin.close();
+
+            // Repost to slack in same channel requested from
+            slack(lastLine,requestURL);
+        } catch(...) {
+
+        }
+    }
 }
