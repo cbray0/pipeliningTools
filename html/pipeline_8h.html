@@ -128,6 +128,8 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 <code>#include &lt;sys/stat.h&gt;</code><br/>
 <code>#include &lt;cstring&gt;</code><br/>
 <code>#include &lt;fstream&gt;</code><br/>
+<code>#include &lt;atomic&gt;</code><br/>
+<code>#include &lt;curl/curl.h&gt;</code><br/>
 <code>#include &quot;backward-cpp/backward.hpp&quot;</code><br/>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
@@ -186,19 +188,35 @@ Functions</h2></td></tr>
 <tr class="memitem:a930210ae7f13b61a96c4438c8970ffa9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a930210ae7f13b61a96c4438c8970ffa9">replaceLineInFile</a> (std::string original, std::string replace, std::string input, std::string output)</td></tr>
 <tr class="memdesc:a930210ae7f13b61a96c4438c8970ffa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change a line in a file, writing to a new file.  <a href="#a930210ae7f13b61a96c4438c8970ffa9">More...</a><br/></td></tr>
 <tr class="separator:a930210ae7f13b61a96c4438c8970ffa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45a6354de62bb8d1229f116351e67e92"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a45a6354de62bb8d1229f116351e67e92">curl</a> (std::string url)</td></tr>
+<tr class="separator:a45a6354de62bb8d1229f116351e67e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a538d65d800f1efa836d8d7f1f136227e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a538d65d800f1efa836d8d7f1f136227e">between</a> (std::string const &amp;in, std::string const &amp;before, std::string const &amp;after)</td></tr>
+<tr class="memdesc:a538d65d800f1efa836d8d7f1f136227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract string from between other strings </p>
+<h2>Credit to Christopher Creutzig:StackOverflow</h2>
+ <a href="#a538d65d800f1efa836d8d7f1f136227e">More...</a><br/></td></tr>
+<tr class="separator:a538d65d800f1efa836d8d7f1f136227e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac946e3c27360334b3740a8aa5e861f29"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ac946e3c27360334b3740a8aa5e861f29">urlDecode</a> (const std::string SRC)</td></tr>
+<tr class="memdesc:ac946e3c27360334b3740a8aa5e861f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">URL Decode.  <a href="#ac946e3c27360334b3740a8aa5e861f29">More...</a><br/></td></tr>
+<tr class="separator:ac946e3c27360334b3740a8aa5e861f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeefe9da646eb64015009026f3dc50e1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS</a> (std::string inbox)</td></tr>
+<tr class="memdesc:aeefe9da646eb64015009026f3dc50e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watch JARVIS front end (Incomplete)  <a href="#aeefe9da646eb64015009026f3dc50e1e">More...</a><br/></td></tr>
+<tr class="separator:aeefe9da646eb64015009026f3dc50e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memItemLeft" align="right" valign="top">backward::SignalHandling&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebackward.html#a6be34a42939faf0fbcfe077ce9faf9ae">backward::sh</a></td></tr>
 <tr class="memdesc:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singal hander - prints pretty debug output if there is an error.  <a href="#a6be34a42939faf0fbcfe077ce9faf9ae">More...</a><br/></td></tr>
 <tr class="separator:a6be34a42939faf0fbcfe077ce9faf9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfae095d519d67de32a21799801cbcdd"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#adfae095d519d67de32a21799801cbcdd">exitFlag</a></td></tr>
+<tr class="memdesc:adfae095d519d67de32a21799801cbcdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bool to tell external threads to exit.  <a href="#adfae095d519d67de32a21799801cbcdd">More...</a><br/></td></tr>
+<tr class="separator:adfae095d519d67de32a21799801cbcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simulation automation tools repo. </p>
 <dl class="section author"><dt>Author</dt><dd>Connor Bray</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23 Feb. 2018</dd></dl>
 <p>This file contains a variety of useful functions for automating simulation execution.</p>
-<p>The following arguments are required to compile: <code>-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g</code></p>
+<p>The following arguments are required to compile: <code>-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl</code></p>
 <p>The following arguments are recommended: <code>-Ofast -Wall -g</code></p>
 <p>To precompile the header: <code>g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c <a class="el" href="pipeline_8h.html" title="Simulation automation tools repo. ">pipeline.h</a></code> </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -292,6 +310,66 @@ Variables</h2></td></tr>
 <p><code>std::chrono::seconds input_seconds</code> - Duration to convert to human readable string.</p>
 <h3>Returns:</h3>
 <p><code>std::string</code> - Human readable time duration. </p>
+
+</div>
+</div>
+<a class="anchor" id="a538d65d800f1efa836d8d7f1f136227e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string between </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>before</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>after</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract string from between other strings </p>
+<h2>Credit to Christopher Creutzig:StackOverflow</h2>
+</p>
+<h3>Arguments:</h3>
+<p><code>string in</code> - Input string to find in <code>string before</code> - String before target <code>string after</code> - String after target</p>
+<h3>Return value</h3>
+<p>Returns target string, the string between <code>before</code> and <code>after</code> in <code>in</code>. </p>
+
+<p>Referenced by <a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a45a6354de62bb8d1229f116351e67e92"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string curl </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>url</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS()</a>.</p>
 
 </div>
 </div>
@@ -467,6 +545,29 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aeefe9da646eb64015009026f3dc50e1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void JARVIS </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>inbox</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Watch JARVIS front end (Incomplete) </p>
+<h2>Watches JARVIS bot front end for messages</h2>
+<h3>Notes:</h3>
+<p>How to use: First, start the bot in a new thread: <code>thread t(JARVIS, &lt;inbox url&gt;);</code> At end of simulation, set exitFlag to 1 (tells thread to exit), then join the thread.</p>
+<h3>Arguments:</h3>
+<p><code>string inbox</code> - Link to webhook inbox (use webhook inbox becaues cronos is behind a firewall). Link should look like this: <a href="http://api.webhookinbox.com/i/xxxxxxxx/">http://api.webhookinbox.com/i/xxxxxxxx/</a> </p>
+
+</div>
+</div>
 <a class="anchor" id="a2463a3acef2df4c951ce942a3229e44e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -629,6 +730,48 @@ Variables</h2></td></tr>
 <h3>Notes:</h3>
 <p>To use, in your main, add the following line: <code>std::atexit(slack(message,key));</code></p>
 <p>To use, you will need to go to api.slack.com (or request I do so), and get an API hook into whichever DM or channel you want to message. </p>
+
+<p>Referenced by <a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac946e3c27360334b3740a8aa5e861f29"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string urlDecode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>SRC</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>URL Decode. </p>
+<h2>Credit to tominko on StackOverflow.</h2>
+<h3>Arguments:</h3>
+<p><code>string SRC</code> - String to decode</p>
+<h3>Return value</h3>
+<p>Decoded string </p>
+
+<p>Referenced by <a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="adfae095d519d67de32a21799801cbcdd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; exitFlag</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bool to tell external threads to exit. </p>
 
 </div>
 </div>
