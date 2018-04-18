@@ -11,9 +11,9 @@
 
     The following arguments are required to compile: `-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl`
 
-    The following arguments are recommended: `-Ofast -Wall -g`
+    The following arguments are recommended: `-Ofast -Wall`
 
-    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c pipeline.h`
+    To precompile the header: `g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl -Ofast -Wall -c pipeline.h`
 */
 #pragma once
 #include <string>
@@ -32,6 +32,8 @@
 #include <fstream>
 #include <atomic>
 #include <curl/curl.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 
 /**
  @brief Call the given command in bash
@@ -412,6 +414,7 @@ std::string curl(std::string url){
 
 /**
 @brief Extract string from between other strings
+
   ## Credit to Christopher Creutzig:StackOverflow
 
   ### Arguments:
@@ -470,7 +473,7 @@ std::atomic<bool> exitFlag;
  ### Notes:
  How to use:
  First, start the bot in a new thread: `thread t(JARVIS, <inbox url>);`
- At end of simulation, set exitFlag to 1 (tells thread to exit), then join the thread. 
+ At end of simulation, set exitFlag to 1 (tells thread to exit), then join the thread.
 
  ### Arguments:
  * `string inbox` - Link to webhook inbox (use webhook inbox becaues cronos is behind a firewall). Link should look like this: http://api.webhookinbox.com/i/xxxxxxxx/
@@ -515,4 +518,19 @@ void JARVIS(std::string inbox){
 
         }
     }
+}
+
+
+/**
+@brief Out-Of-Memory watchdog program (threadable)
+
+ ## Watches the amount of available ram, and kills the program if <n% is remaining (configurable).
+
+ ### Arguments:
+ * `double fraction` - Fraction of memory remaining to abort if reached.
+**/
+void memoryWatchdog(double fraction){
+    struct sysinfo memInfo;
+    sysinfo (&memInfo);
+    while(true) if(memInfo.freeram<fraction*memInfo.totalram) abort();
 }
