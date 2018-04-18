@@ -130,6 +130,8 @@ $(document).ready(function(){initNavTree('pipeline_8h.html','');});
 <code>#include &lt;fstream&gt;</code><br/>
 <code>#include &lt;atomic&gt;</code><br/>
 <code>#include &lt;curl/curl.h&gt;</code><br/>
+<code>#include &quot;sys/types.h&quot;</code><br/>
+<code>#include &quot;sys/sysinfo.h&quot;</code><br/>
 <code>#include &quot;backward-cpp/backward.hpp&quot;</code><br/>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
@@ -191,9 +193,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a45a6354de62bb8d1229f116351e67e92"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a45a6354de62bb8d1229f116351e67e92">curl</a> (std::string url)</td></tr>
 <tr class="separator:a45a6354de62bb8d1229f116351e67e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a538d65d800f1efa836d8d7f1f136227e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#a538d65d800f1efa836d8d7f1f136227e">between</a> (std::string const &amp;in, std::string const &amp;before, std::string const &amp;after)</td></tr>
-<tr class="memdesc:a538d65d800f1efa836d8d7f1f136227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract string from between other strings </p>
-<h2>Credit to Christopher Creutzig:StackOverflow</h2>
- <a href="#a538d65d800f1efa836d8d7f1f136227e">More...</a><br/></td></tr>
+<tr class="memdesc:a538d65d800f1efa836d8d7f1f136227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract string from between other strings.  <a href="#a538d65d800f1efa836d8d7f1f136227e">More...</a><br/></td></tr>
 <tr class="separator:a538d65d800f1efa836d8d7f1f136227e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac946e3c27360334b3740a8aa5e861f29"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ac946e3c27360334b3740a8aa5e861f29">urlDecode</a> (const std::string SRC)</td></tr>
 <tr class="memdesc:ac946e3c27360334b3740a8aa5e861f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">URL Decode.  <a href="#ac946e3c27360334b3740a8aa5e861f29">More...</a><br/></td></tr>
@@ -201,6 +201,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeefe9da646eb64015009026f3dc50e1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#aeefe9da646eb64015009026f3dc50e1e">JARVIS</a> (std::string inbox)</td></tr>
 <tr class="memdesc:aeefe9da646eb64015009026f3dc50e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watch JARVIS front end (Incomplete)  <a href="#aeefe9da646eb64015009026f3dc50e1e">More...</a><br/></td></tr>
 <tr class="separator:aeefe9da646eb64015009026f3dc50e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac262a3401a44ddb2120251ccf25c9499"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ac262a3401a44ddb2120251ccf25c9499">memoryWatchdog</a> (double fraction)</td></tr>
+<tr class="memdesc:ac262a3401a44ddb2120251ccf25c9499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Out-Of-Memory watchdog program (threadable)  <a href="#ac262a3401a44ddb2120251ccf25c9499">More...</a><br/></td></tr>
+<tr class="separator:ac262a3401a44ddb2120251ccf25c9499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -217,8 +220,8 @@ Variables</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>23 Feb. 2018</dd></dl>
 <p>This file contains a variety of useful functions for automating simulation execution.</p>
 <p>The following arguments are required to compile: <code>-std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl</code></p>
-<p>The following arguments are recommended: <code>-Ofast -Wall -g</code></p>
-<p>To precompile the header: <code>g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -Ofast -Wall -c <a class="el" href="pipeline_8h.html" title="Simulation automation tools repo. ">pipeline.h</a></code> </p>
+<p>The following arguments are recommended: <code>-Ofast -Wall</code></p>
+<p>To precompile the header: <code>g++ -std=c++11 -lX11 -lXtst -pthread -ldl -ldw -g -lcurl -Ofast -Wall -c <a class="el" href="pipeline_8h.html" title="Simulation automation tools repo. ">pipeline.h</a></code> </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="aa5592fc113f9fea784f0727b6c3af74e"></a>
 <div class="memitem">
@@ -343,9 +346,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extract string from between other strings </p>
+<p>Extract string from between other strings. </p>
 <h2>Credit to Christopher Creutzig:StackOverflow</h2>
-</p>
 <h3>Arguments:</h3>
 <p><code>string in</code> - Input string to find in <code>string before</code> - String before target <code>string after</code> - String after target</p>
 <h3>Return value</h3>
@@ -565,6 +567,27 @@ Variables</h2></td></tr>
 <p>How to use: First, start the bot in a new thread: <code>thread t(JARVIS, &lt;inbox url&gt;);</code> At end of simulation, set exitFlag to 1 (tells thread to exit), then join the thread.</p>
 <h3>Arguments:</h3>
 <p><code>string inbox</code> - Link to webhook inbox (use webhook inbox becaues cronos is behind a firewall). Link should look like this: <a href="http://api.webhookinbox.com/i/xxxxxxxx/">http://api.webhookinbox.com/i/xxxxxxxx/</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="ac262a3401a44ddb2120251ccf25c9499"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void memoryWatchdog </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>fraction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Out-Of-Memory watchdog program (threadable) </p>
+<h2>Watches the amount of available ram, and kills the program if &lt;n% is remaining (configurable).</h2>
+<h3>Arguments:</h3>
+<p><code>double fraction</code> - Fraction of memory remaining to abort if reached. </p>
 
 </div>
 </div>
