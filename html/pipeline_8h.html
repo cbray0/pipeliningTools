@@ -204,6 +204,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ac262a3401a44ddb2120251ccf25c9499"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ac262a3401a44ddb2120251ccf25c9499">memoryWatchdog</a> (double fraction)</td></tr>
 <tr class="memdesc:ac262a3401a44ddb2120251ccf25c9499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Out-Of-Memory watchdog program (threadable)  <a href="#ac262a3401a44ddb2120251ccf25c9499">More...</a><br/></td></tr>
 <tr class="separator:ac262a3401a44ddb2120251ccf25c9499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3679fd9513db3ccd91527afc66308fb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab3679fd9513db3ccd91527afc66308fb"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="pipeline_8h.html#ab3679fd9513db3ccd91527afc66308fb">random_seed</a> ()</td></tr>
+<tr class="memdesc:ab3679fd9513db3ccd91527afc66308fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a random seed from /dev/random.  <a href="#ab3679fd9513db3ccd91527afc66308fb">More...</a><br/></td></tr>
+<tr class="separator:ab3679fd9513db3ccd91527afc66308fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -612,6 +616,28 @@ Variables</h2></td></tr>
 <p>This is a workaround for GRSISort's crashing at the end of the simulation. All of the analysis is complete, so data integrity is preserved. </p>
 
 <p>Referenced by <a class="el" href="pipeline_8h.html#a3ef22614541f686d75eee2e14a45f781">grsisort()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab3679fd9513db3ccd91527afc66308fb"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T random_seed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a random seed from /dev/random. </p>
+<h2>Generate a random seed from /dev/random</h2>
+<p>Generating the seed from /dev/random is prefered to generating the seed from the current time because it allows you to start more than one simulation in a second and because /dev/random is cryptographically secure.</p>
+<p>Code adapted from that posted by <code>posop</code> on stackoverflow </p>
 
 </div>
 </div>
