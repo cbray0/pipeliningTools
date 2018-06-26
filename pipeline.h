@@ -534,3 +534,28 @@ void memoryWatchdog(double fraction){
     sysinfo (&memInfo);
     while(true) if(memInfo.freeram<fraction*memInfo.totalram) abort();
 }
+
+/**
+ @brief Generates a random seed from /dev/random
+
+ ## Generate a random seed from /dev/random
+
+ Generating the seed from /dev/random is prefered to generating the seed from the current time because it allows you to start more than one simulation in a second and because /dev/random is cryptographically secure.
+
+ Code adapted from that posted by `posop` on stackoverflow
+*/
+template<typename T>
+T random_seed(){
+    T seed;
+    std::ifstream file("/dev/random",std::ios::binary);
+    if(file.is_open()){
+        char *memblock;
+        T size=sizeof(T);
+        memblock=new char [size];
+        file.read(memblock,size);
+        file.close();
+        seed=*reinterpret_cast<T*>(memblock);
+        delete[] memblock;
+        return seed;
+    }else{return random_seed<T>();} // Continually retry until /dev/random is free
+}
