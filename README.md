@@ -1,4 +1,4 @@
-# pipeliningTools
+# pipeliningTools (Deprecated. New version available at [gitlab.com/cbray/pipeliningTools](https://gitlab.com/cbray/pipeliningTools))
 Simulation automation tools repo
 
 This repo contains a variety of useful functions for automating simulation execution.
