@@ -1,7 +1,7 @@
 var NAVTREE =
 [
   [ "Simulation Pipelining tools", "index.html", [
-    [ "pipeliningTools", "md_README.html", null ],
+    [ "pipeliningTools (Deprecated. New version available at [gitlab.com/cbray/pipeliningTools](https://gitlab.com/cbray/pipeliningTools))", "md_README.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
